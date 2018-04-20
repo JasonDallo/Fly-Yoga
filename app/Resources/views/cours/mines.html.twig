@@ -1,0 +1,52 @@
+{% extends 'basetemp.html.twig' %}
+{% block body %}
+<table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Title</th>
+			<th>Lieu</th>
+			<th>Type</th>
+			<th>Date de début</th>
+			<th>Duree</th>
+			<th>Prix</th>
+			<th>Places</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for cour in courses %}
+		<tr>
+			<td>{{ cour.id }}</td>
+			<td>{{ cour.title }}</td>
+			<td>{{ cour.lieu }}</td>
+			<td>{{ cour.type }}</td>
+			<td>{{ cour.dateDebut }}</td>
+			<td>{{ cour.duree }}</td>
+			<td>{{ cour.tarif }}</td>
+			<td>{{ cour.nbrPlace }}</td>
+			<td>
+				{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+				{% if cartes|length > 0 %}
+				<!-- Button trigger modal -->
+				<form method="post" action="{{ path('courseSub') }}">
+					<input type="hidden" name="id" value="{{ cour.id }}">
+					<button type="submit" class="btn btn-success" >
+						Réserver une place
+					</button>
+				</form>
+				{% endif %}
+
+				{% else %}
+				<form action="/login">
+					<button class="btn btn-success" type="submit">
+						Connectez-vous avant de vous inscrire.
+					</button>
+				</form>
+				{% endif %}
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}

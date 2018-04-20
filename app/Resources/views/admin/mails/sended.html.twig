@@ -1,0 +1,49 @@
+{% extends 'baseadminmail.html.twig' %}
+{% block body %}
+<div class="col-sm-9 col-md-10">
+
+	<div class="tab-content">
+		<div class="tab-pane fade in active" id="home">
+				<h4>Boite d'envoi</h4>
+			<div class="list-group">
+				{% for mail in mails %}
+				<a href="/admin/mails/{{ mail.id }}" class="list-group-item">
+					<div class="checkbox">
+						<label>
+							<input type="checkbox">
+						</label>
+					</div>
+					<span class="glyphicon glyphicon-star-empty"></span>
+					<span class="name" style="min-width: 120px;display: inline-block;">{{ mail.usersmails|join(';')[:14] }}..</span>
+					<span class="">{{ mail.title[:32] }}</span>
+					<span class="text-muted" style="font-size: 11px;"> 
+					{% if mail.content|length > 110 %}
+					{{ mail.content[:105] }} ...
+					{% else %}
+					{{ mail.content }}
+					{% endif %}
+					</span>
+					<span class="badge">{{ mail.sendAt|date("d/m H:i:s") }}</span>
+					<span class="pull-right">
+						<span class="glyphicon glyphicon-paperclip"></span>
+					</span>
+				</a>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="tab-pane fade in" id="profile">
+			<div class="list-group">
+				<div class="list-group-item">
+					<span class="text-center">This tab is empty.</span>
+				</div>
+			</div>
+		</div>
+		<div class="tab-pane fade in" id="messages">
+			...</div>
+			<div class="tab-pane fade in" id="settings">
+				This tab is empty.</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends 'baseadmin.html.twig' %}
+{% block body %}
+<form method="post" action="{{ path('addedArticle') }}" enctype="multipart/form-data">
+<div class="md-form">
+    <i class="fa fa-envelope prefix"></i>
+    <input type="text" id="form2" class="form-control" name="name" required="">
+    <label for="form2">Nom de l'article</label>
+</div>
+<div class="md-form">
+    <i class="fa fa-envelope prefix"></i>
+    <input type="text" id="form2" class="form-control" pattern="-?[0-9]*(\.[0-9]+)?" name="prix" required="">
+    <label for="form2">Prix de l'article</label>
+</div>
+
+<div class="md-form">
+    <i class="fa fa-envelope prefix"></i>
+        <select class="mdl-selectfield__select" id="professsion" name="type" required="">
+          <option value=""></option>
+          {% for type in types %}
+          <option value="{{ type.id }}">{{ type.name }}</option>
+          {% endfor %}
+        </select>
+</div>
+<div class="md-form">
+    <i class="fa fa-pencil prefix"></i>
+    <textarea type="text" id="form8" class="md-textarea" name="desc" required=""></textarea>
+    <label for="form8">desc de l'article</label>
+</div>
+<div class="md-form">
+    <i class="fa fa-envelope prefix"></i>
+    <input type="file" name="img" required="">
+</div>
+
+<button type="submit" class="btn btn-success">Submit</button>
+</form>
+
+<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" data-toggle="modal" data-target="#modal-addType">
+  Ajouter un type d'article
+</button>
+
+
+<!-- Modal Subscription -->
+<div class="modal fade modal-ext" id="modal-addType" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Ajouter un type d'article</h4>
+      </div>
+      <!--Body-->
+      <div class="modal-body">
+        <p>Veuillez renseigner tous les champs suivants afin de completer l'ajout.</p>
+        <br>
+        <form method="post" action="{{ path('newTypeArticle') }}">
+          <div class="md-form">
+            <i class="fa fa-user prefix"></i>
+            <input type="text" id="form22" class="form-control" name="name" required="">
+            <label for="form22">Le nom du type</label>
+          </div>
+          <div class="text-xs-center">
+            <button class="btn btn-primary" type="submit">Confirmer</button>
+          </div>
+        </div>
+      </form>
+      <!--Footer-->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+{% endblock %}

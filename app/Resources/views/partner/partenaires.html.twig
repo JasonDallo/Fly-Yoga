@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<!-- Heding -->
+<div class="page-heading">
+  <h1>Partenaires</h1>
+  <p>Voici nos derniers partenaires.</p>
+</div>
+
+<!-- Class SideBar Wrapper -->
+<div class="helix-blog-page-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9 ">
+        {% for partner in partners %}
+        <div class="helix-boxed-container blog-page">
+          <div class="content-wrapper clearfix ">
+            <img src="{{ asset('img/partenaires/' ~ partner.id ~ '/' ~ random(partner.images)) }}" alt="/!\" class="img-responsive" style="width:758px;height:350px">
+            <div class="heading">
+              <a href="{{ path('showPartner', {id: partner.id}) }}" ><h2 class="title">{{ partner.name }}</h2></a>
+              <div class="meta">
+                <h3>{{ partner.place }}</h3>
+              </div>
+            </div>
+            <div class="info-block">
+              {{ partner.description[:170]|nl2br }}
+            </div>
+            <div class="more-button">
+              <a href="{{ path('showPartner', {id: partner.id}) }}" class="btn btn-normal btn-solid">Continue reading</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="col-md-3">
+        <div class="helix-sidebar">
+          {% if app.user is defined %}
+          <div class="sidebar-widget advertisement">
+            <h4 class="title">Demande de partenariat</h4>
+            <div class="widget-content">
+              <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                Demander
+              </button>
+              <div class="ad-banner">
+              </div>
+            </div>
+          </div>
+          {% endif %}
+          <div class="sidebar-widget search">
+            <h4 class="title">Recherche</h4>
+            <div class="widget-content">
+              <form action="{{ path('searchPartner') }}" class="sidebar-form" method="POST">
+                <div class="field">
+                  <input type="text" name="search" placeholder="Ce que vous cherchez">
+                </div>
+                <button type="submit"><i class="ion-ios-search-strong"></i></button>
+              </form>
+            </div>
+          </div>
+          {% if myParts is defined %}
+          <div class="sidebar-widget recent-posts">
+            <h4 class="title">Vos Partenariats</h4>
+            <div class="widget-content">
+              <ul class="posts-list">
+              {% for myPart in myParts %}
+                <li class="clearfix"><a href="{{ path('showPartner', {'id': myPart.id}) }}"><img src="{{ asset('img/partenaires/' ~ myPart.id ~ '/' ~ random(myPart.images)) }}" style="width:100px;" alt=""></a><a href="{{ path('showPartner', {'id': myPart.id}) }}" class="text">{{ myPart.name[:35] }}</a></li>
+              {% endfor %}
+              </ul>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Demander un partenariat</h4>
+      </div>
+      <div class="modal-body">
+        <form method='POST' action="{{ path('Partnernew') }}">
+          <div class="form-group">
+          <label>Nom du partenariat</label>
+            <input type="text" class="form-control" placeholder="...." name="name">
+            <p class="text-info">Nom de l'établissement / association.</p>
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <textarea class="form-control" rows="5" id="comment" placeholder="...." name="desc" style="resize:none;"></textarea>
+            <p class="text-info">Une description brève qui peut être modifiée sur la page d'édition.</p>
+          </div>
+          <div class="form-group">
+            <label>Lieu</label>
+            <input type="text" class="form-control" placeholder="...." name="place">
+            <p class="text-info">Lieu sommaire du lieu de votre local.</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Envoyer votre demande</button>
+        </form>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

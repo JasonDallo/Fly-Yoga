@@ -1,0 +1,20 @@
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+partner:
+    resource: "@PartnerBundle/Controller/"
+    type:     annotation
+course:
+    resource: "@CourseBundle/Controller/"
+    type:     annotation
+shop:
+    resource: "@ShopBundle/Controller/"
+    type:     annotation
+blog:
+    resource: "@BlogBundle/Controller/"
+    type:     annotation
+admin:
+    path:     /admin
+    defaults: { _controller: AppBundle:Admin }
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"

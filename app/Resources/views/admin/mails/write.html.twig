@@ -1,0 +1,39 @@
+{% extends 'baseadminmail.html.twig' %}
+{% block body %}
+			<div class="col-sm-9 col-md-10">
+				<h4>Ecrire un mail</h4>
+				<form method="POST" action="{{ path('mailPosted') }}">
+					<fieldset class="form-group">
+						<i class="fa fa-header" aria-hidden="true"></i>
+						<label for="exampleInputEmail1">Titre de votre mail</label>
+						<input type="text" class="form-control" id="exampleInputEmail1" placeholder="Titre ..." name="title" required>
+					</fieldset>
+					<fieldset class="form-group">
+						<i class="fa fa-users" aria-hidden="true"></i>
+						<label for="exampleInputEmail1">Destinataire(s)</label>
+						<br>
+						<input type="checkbox" name="checkbox1" value="users" />
+						<label for="checkbox1">Utilisateurs</label>
+						<input type="checkbox" name="checkbox2" value="trainers" />
+						<label for="checkbox2">Professeurs</label>
+						<input type="checkbox" name="checkbox3" value="partners" />
+						<label for="checkbox3">Partenaires</label>
+						<input type="checkbox" name="checkbox4" value="admins" />
+						<label for="checkbox4">Administrateurs</label>
+					</fieldset>
+						<small class="text-muted">Et/ou</small>
+
+					<fieldset class="form-group">
+						<input type="text" class="form-control" id="exampleInputEmail1" placeholder="Adresses email ..." name="emails">
+						<small class="text-muted">Veuillez séparer vos adresses par un point-virgule</small>
+					</fieldset>
+					<fieldset class="form-group">
+						<label for="exampleTextarea">Contenu de votre mail</label>
+						<textarea class="form-control" id="exampleTextarea" rows="12" placeholder="Contenu ..." name="content" required></textarea>
+					</fieldset>
+
+					<button type="submit" class="btn btn-primary" value="Envoyer"></button>
+				</form>
+
+			</div>
+{% endblock %}

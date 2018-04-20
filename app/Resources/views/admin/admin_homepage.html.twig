@@ -1,0 +1,52 @@
+{% extends('baseadmin.html.twig') %}
+{% block body %}
+<link rel="stylesheet" type="text/css" href="{{ asset('css/activity.css') }}">
+<div class="userslogs">
+<h3>Activités des utilisateurs</h3>
+	<div class="container" style="margin-top:20px;">
+		<div class="row">
+			<div class="col-md-12">
+				<ul class="list-group activity-list">
+				{% for user in logs[0] %}
+					<li class="list-group-item">
+						<a href="#">{{ user.firstname }} {{ user.lastname }}</a> s'est inscrit, le .<a href="#"></a>
+					</li>
+				{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="courseslogs">
+<h3>Activités des inscriptions aux cours</h3>
+	<div class="container" style="margin-top:20px;">
+		<div class="row">
+			<div class="col-md-12">
+				<ul class="list-group activity-list">
+				{% for course in logs[1] %}
+					<li class="list-group-item">
+						<a href="#">{{ course[0].firstname ~ ' ' ~ course[0].lastname }}</a> s'est inscrit au cours <a href="#">"{{ course[1].title }}"</a> le
+					</li>
+				{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="entities">
+<h3>Activités des achats</h3>
+	<div class="container" style="margin-top:20px;">
+		<div class="row">
+			<div class="col-md-12">
+				<ul class="list-group activity-list">
+				{% for entities in logs[2] %}
+					<li class="list-group-item">
+						<a href="#">{{ entities[0].firstname ~ ' ' ~ entities[0].lastname}}</a> a acheté un(e) {{ entities[1].name }} pour {{ entities[1].prix }}, le .<a href="#"></a>
+					</li>
+				{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

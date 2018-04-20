@@ -1,0 +1,89 @@
+{% extends 'baseadmin.html.twig' %}
+{% block body %}
+<form method="post" action="{{ path('editedCourse') }}">
+	<div class="mdl-textfield mdl-js-textfield">
+		<label>Titre:</label>
+		<input value="{{ course.title }}" name="title" placeholder="Titre" required="">
+	</div>
+<br/>
+
+	<div class="mdl-textfield mdl-js-textfield">
+
+		<label>Lieu:</label>
+		<input value="{{ course.lieu }}" name="lieu"placeholder="Lieu" required="">
+	</div>
+<br/>
+	<div class="mdl-textfield mdl-js-textfield">
+		<label>Duree:</label>
+
+		<input value="{{ course.duree }}" name="duree" placeholder="Duree">
+	</div>
+<br/>
+
+
+	<div class="mdl-textfield mdl-js-textfield">
+		<label>Tarif:</label>
+
+		<input value="{{ course.tarif }}" name="tarif" pattern="-?[0-9]*(\.[0-9]+)?" placeholder="Prix">
+	</div>
+<br/>
+
+
+	<div class="mdl-textfield mdl-js-textfield">
+		<label>Places:</label>
+
+		<input value="{{ course.nbrPlace }}" name="place" pattern="-?[0-9]*(\.[0-9]+)?"placeholder="Places">
+	</div>
+<br/>
+
+      <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
+        <label class="mdl-selectfield__label" for="professsion"><b>Type du cours</b></label>
+        <select class="mdl-selectfield__select" id="professsion" name="type" required="">
+          <option value="{{ course.type }}">{{ course.type }}</option>
+          {% for type in types %}
+          <option style="background-color:{{ type.color }};" value="{{ type.name }}">{{ type.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+       <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
+        <label class="mdl-selectfield__label" for="professsion"><b>Professeur</b></label>
+        <select class="mdl-selectfield__select" id="professsion" name="prof" required="">
+          <option value=""></option>
+          {% for prof in profs %}
+          <option value="{{ prof.id }}">{{ prof.username }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+
+	<div class="mdl-textfield mdl-js-textfield">
+		<label>Date:</label>
+		{% set array = course.dateDebut|split(' ', 4) %}
+		<input value="{{ attribute(array,0) ~ ' ' ~ attribute(array,1) ~ ' ' ~ attribute(array,2) }}" name="date" type="date" id="datepicker">
+	</div>
+
+		<div class="mdl-textfield mdl-js-textfield">
+		<label>Heure:</label>
+
+		<input value="{{ attribute(array, 3) }}" name="hour" type="date" id="timepicker">
+	</div>
+
+      <input type="hidden" name="id" value="{{ course.id }}}">
+      <input type="submit" class="mdl-button" value="Submit">
+
+</form>
+
+<h4>Prévoir sur plusieurs semaines</h4>
+<form method="POST" action="{{ path('provideCourse') }}">
+<label>Sur combien de semaines ?</label>
+<select name="count">
+{% for i in 1..6 %}
+  <option value="{{ i }}">{{ i }}</option> 
+{% endfor %}
+</select>
+<input type="hidden" name="id" value="{{ course.id }}">
+
+<button type="submit">Prévoir</button>
+</form>
+{% endblock %}

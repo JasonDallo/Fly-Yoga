@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<!-- Heding -->
+<div class="page-heading">
+	<h1>Partenaires</h1>
+	<p>vous recherchez avec {{ keyword }}.</p>
+</div>
+
+<!-- Class SideBar Wrapper -->
+<div class="helix-blog-page-wrapper">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-9 ">
+				{% for part in parts %}
+				<div class="helix-boxed-container blog-page">
+					<div class="content-wrapper clearfix ">
+						<img src="{{ asset('img/partenaires/' ~ part.id ~ '/' ~ random(part.images)) }}" alt="/!\" class="img-responsive" style="width:758px;height:350px">
+						<div class="heading">
+							<a href="{{ path('showPartner', {'id': part.id }) }}" ><h2 class="title">{{ part.name }}</h2></a>
+							<div class="meta">
+								<h3>{{ part.place }}</h3>
+							</div>
+						</div>
+						<div class="info-block">
+							{{ part.description[:170]|nl2br }}
+						</div>
+						<div class="more-button">
+							<a href="{{ path('showPartner', {'id': part.id }) }}" class="btn btn-normal btn-solid">Continue reading</a>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+			<div class="col-md-3">
+				<div class="helix-sidebar">
+					<div class="sidebar-widget search">
+						<h4 class="title">Recherche</h4>
+						<div class="widget-content">
+							<form action="{{ path('searchPartner') }}" class="sidebar-form" method="POST">
+								<div class="field">
+									<input type="text" name="search" placeholder="Ce que vous cherchez">
+								</div>
+								<button type="submit"><i class="ion-ios-search-strong"></i></button>
+							</form>
+						</div>
+					</div>
+          			{% if myParts is defined %}
+					<div class="sidebar-widget recent-posts">
+						<h4 class="title">Recent Posts</h4>
+						<div class="widget-content">
+							<ul class="posts-list">
+								{% for myPart in myParts %}
+								<li class="clearfix"><a href="{{ path('showPartner', {'id': myPart.id}) }}"><img src="" style="width:100px;" alt=""></a><a href="{{ path('showPartner', {'id': myPart.id}) }}" class="text">{{ myPart.name[:35] }}</a></li>
+								{% endfor %}
+							</div>
+						</div>
+						{% endif %}
+						<div class="sidebar-widget subscribe">
+							<h4 class="title">S'abonner</h4>
+							<div class="widget-content">
+								<p>S'abonner permet de suivre nos activités.</p>
+								<form action="{{ path('subRegister') }}" class="sidebar-form" method="POST">
+									<div class="field">
+										<input type="email" name="email" placeholder="Enter your email here">
+									</div>
+									<button class="btn btn-normal btn-solid">Subscribe</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% endblock %}

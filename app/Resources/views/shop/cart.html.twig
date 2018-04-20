@@ -1,0 +1,126 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+<!-- Heding -->
+<div class="page-heading two">
+	<h1>Votre panier</h1>
+</div>
+
+<!-- Shop Features -->
+<div class="shop-features">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 shop-feature clearfix">
+				<div class="icon"><i class="ion-ios-paperplane"></i></div>
+				<div class="description">
+					<h3>Free shipping in town</h3>
+					<p>Buy now and get it without extra fee</p>
+				</div>
+			</div>
+			<div class="col-md-4 shop-feature clearfix">
+				<div class="icon"><i class="ion-card"></i></div>
+				<div class="description">
+					<h3>Money-back guarantee</h3>
+					<p>100% money back in the first week</p>
+				</div>
+			</div>
+			<div class="col-md-4 shop-feature clearfix">
+				<div class="icon"><i class="ion-chatbubble-working"></i></div>
+				<div class="description">
+					<h3>Friendly support</h3>
+					<p>Free 24/7 Support</p>
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>
+
+<!-- Cart -->
+<div class="helix-shop-page-wrapper shop-cart">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8">
+				<div class="helix-boxed-container">
+					<div class="top-bar shop-top-bar clearfix">
+						<div class="step"><p class="buble">1</p><h4>Shopping</h4></div>
+						<div class="step active"><p class="buble" >2</p><h4>Panier</h4></div>
+						<div class="step"><p class="buble">3</p><h4>Payer</h4></div>
+					</div>
+					<div class="content-wrapper">
+						{% for item in items %}
+						<div class="helix-product clearfix">
+							<img src="{{ asset('img/shop/' ~ item.id ~ ".jpg") }}" alt="">
+							<div class="product-details">
+								<div class="title">
+									<h3>{{ item.name }}</h3>
+
+								</div>
+								<div class="qty-input">
+									<h3>Q.ty:</h3>
+									<form action="#" class="qta clearfix qta-control">
+										<div class="cart-plus-minus-button clearfix">
+											<div class="dec qtybutton"><i class="ion-arrow-down-b"></i></div>
+											<input type="number" name="product-qty" value="{{ item.quantity }}">
+											<div class="inc qtybutton"><i class="ion-arrow-up-b"></i></div>
+										</div>
+									</form>
+								</div>
+								<h3 class="price">Prix: {{ item.prix }}</h3>
+								<h3 class="total">Total: {{ item.prix * item.quantity }}</h3>
+							</div>
+							<form method="POST" action="{{ path('delFromCart') }}">
+							<input type="hidden" name="id" value="{{ item.id }}">
+							<button type="submit"><i class="delete-product ion-close-circled"></i></button>
+							</form>
+						</div>
+						{% endfor %}
+					</div>
+					<div class="shop-bottom-bar clearfix">
+						<form action="#" class="coupon shop-form clearfix">
+							<div class="field">
+								<input type="text" placeholder="Coupon code">
+							</div>
+							<button>Apply this coupon</button>
+							<div class="tooltip-wrapper">
+								<i class="ion-information-circled"></i>
+								<div class="helix-tooltip">
+									<p>Lorem ipsum dolor sit amet, consectetur.</p>
+								</div>
+							</div>
+						</form>	
+						<button class="btn btn-normal btn-solid">Update Cart</button>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="helix-sidebar">
+					<div class="sidebar-widget cart-totals">
+						<h4 class="title">Montant du panier</h4>
+						<ul class="totals">	
+							<li class="clearfix">
+								<h4 class="name">Articles</h4>
+								<h4 class="cost">{{ total }}€</h4>
+							</li>
+							<li class="clearfix">
+								<h4 class="name">Livraison</h4>
+								<h4 class="cost">Livraison gratuite</h4>
+							</li>
+							<li class="clearfix">
+								<h4 class="name">Coût total</h4>
+								<h4 class="cost total">{{ total }}€</h4>
+							</li>
+						</ul>
+						<div class="check-out-btn">
+						{% if total == 0 %}
+							<a class="btn btn-normal btn-solid" disabled>Payer avec Paypal</a>
+						{% else %}
+							<a href="{{ path('cartCheckout') }}" class="btn btn-normal btn-solid">Payer avec Paypal</a>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,196 @@
+{% extends('baseadmin.html.twig') %}
+{% block body %}
+<table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Lieu</th>
+      <th>Type</th>
+      <th>Date de début</th>
+      <th>Duree</th>
+      <th>Prix</th>
+      <th>Places</th>
+      <th>Visible</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for course in courses %}
+    <tr>
+      <td>{{ course.id }}</td>
+      <td>{{ course.title }}</td>
+      <td>{{ course.lieu }}</td>
+      <td>{{ course.type }}</td>
+      <td>{{ course.dateDebut }}</td>
+      <td>{{ course.duree }}</td>
+      <td>{{ course.tarif }}</td>
+      <td>{{ course.placesUtilisées }}/{{ course.nbrPlace }}</td>
+      <td>
+        {% if course.visibility == true %}
+        <form method="post" action="{{ path('setInvisible') }}">
+          <input type='hidden' name="{{ course.id }}">
+          <button class="btn btn-success-outline waves-effect">Oui</button>
+        </form>
+        {% else %}
+        <form method="post" action="{{ path('setVisible') }}">
+          <input type='hidden' name="{{ course.id }}">
+          <button type="submit" class="btn btn-danger-outline waves-effect">Non</button>
+        </form>
+        {% endif %}
+      </td>
+      <td>
+      <form method="post" action="{{ path('editCourse') }}">
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button">
+          <i class="material-icons">build</i>
+        </button>
+        <input type="hidden" name="id" value="{{ course.id }}">
+        </form>
+        <form method="post" action="{{ path('delCourse') }}">
+          <input type="hidden" name="{{ course.id }}">
+          <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button-">
+            <i class="material-icons">clear</i>
+          </button>
+        </form>
+      </td>
+    </tr>
+
+    {% endfor %}
+  </tbody>
+</table>
+
+
+
+<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="show-dialog">
+  Ajouter un cours
+</button>
+
+<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" data-toggle="modal" data-target="#modal-addType">
+  Ajouter un type de cours
+</button>
+
+<dialog class="mdl-dialog">
+  <h6 class="mdl-dialog__title">Ajouter un cours </h6>
+  <div class="mdl-dialog__content">
+    <p>
+      Remplissez les champs suivants.
+    </p>
+    <form action="{{ path('newCourse') }}" method="post">
+      <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" id="sample1" name="title" placeholder="Titre du cours" required="">
+      </div>
+      <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" id="sample1" name="place" placeholder="Lieu" required="">
+      </div>
+
+      <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
+        <label class="mdl-selectfield__label" for="professsion"><b>Professeur</b></label>
+        <select class="mdl-selectfield__select" id="professsion" name="prof" required="">
+          <option value=""></option>
+          {% for prof in profs %}
+          <option value="{{ prof.id }}">{{ prof.username }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample2" min="0" name="price">
+        <label class="mdl-textfield__label" for="">Prix</label>
+        <span class="mdl-textfield__error">Ce n'est pas un nombre !</span>
+      </div>
+
+
+      <div class="mdl-textfield mdl-js-textfield">
+        <input id="datepicker" name="date" placeholder="Date" type="date">
+      </div>
+
+      <div class="mdl-textfield mdl-js-textfield">
+        <input id="timepicker" name="time" placeholder="Heure">
+      </div>
+
+
+      <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
+        <label class="mdl-selectfield__label" for="professsion"><b>Type du cours</b></label>
+        <select class="mdl-selectfield__select" id="professsion" name="type" required="">
+          <option value=""></option>
+          {% for type in types %}
+          <option style="background-color:{{ type.color }};" value="{{ type.name }}">{{ type.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <input type="submit" class="mdl-button" value="Submit">
+      <button type="button" class="mdl-button close">Annuler</button>
+    </form>
+  </div>
+  <div class="mdl-dialog__actions">
+  </div>
+</dialog>
+<script>
+  var dialog = document.querySelector('dialog');
+  var showDialogButton = document.querySelector('#show-dialog');
+  if (! dialog.showModal) {
+    dialogPolyfill.registerDialog(dialog);
+  }
+  showDialogButton.addEventListener('click', function() {
+    dialog.showModal();
+  });
+  dialog.querySelector('.close').addEventListener('click', function() {
+    dialog.close();
+  });
+</script>
+
+
+<!-- Modal Subscription -->
+<div class="modal fade modal-ext" id="modal-addType" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Ajouter un type de cours</h4>
+      </div>
+      <!--Body-->
+      <div class="modal-body">
+        <p>Veuillez renseigner tous les champs suivants afin de completer l'ajout.</p>
+        <br>
+        <form method="post" action="{{ path('newType') }}">
+          <div class="md-form">
+            <i class="fa fa-user prefix"></i>
+            <input type="text" id="form22" class="form-control" name="name" required="">
+            <label for="form22">Le nom du type</label>
+          </div>
+
+          <div class="md-form">
+            <i class="fa fa-envelope prefix"></i>
+            <input type="text" id="form32" class="form-control" name="color" required="">
+            <label for="form32">Sa couleur. Veuilez précisez en héxadécimal</label>
+          </div>
+
+          <div class="md-form">
+            <i class="fa fa-envelope prefix"></i>
+            <input type="text" id="form32" class="form-control" name="desc" required="">
+            <label for="form32">Une rapide description</label>
+          </div>
+
+          <div class="md-form">
+            <i class="fa fa-envelope prefix"></i>
+            <input type="file" id="form32" class="form-control" name="img" placeholder="Image représentative">
+          </div>
+          <div class="text-xs-center">
+            <button class="btn btn-primary" type="submit">Confirmer</button>
+          </div>
+        </div>
+      </form>
+      <!--Footer-->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+{% endblock %}

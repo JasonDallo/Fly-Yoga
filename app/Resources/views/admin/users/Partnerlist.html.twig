@@ -1,0 +1,37 @@
+{% extends('baseadmin.html.twig') %}
+{% block body %}
+<table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>description</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for partner in partners %}
+    <tr>
+      <td>{{ partner.id }}</td>
+      <td>{{ partner.name }}</td>
+      <td>{{ partner.description[:64] }}</td>
+      <td>
+        {% if partner.enabled == 0 %}
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+          Activer
+        </button>
+        {% elseif partner.enabled == 1 %}
+         <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+          Désactiver
+        </button>
+        {% endif %}
+        <a href="{{ path('deletePart',{ id: partner.id}) }}">
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button-">
+          <i class="material-icons">clear</i>
+        </button></a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

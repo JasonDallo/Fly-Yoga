@@ -1,0 +1,151 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<!-- Heding -->
+<div class="page-heading">
+	<h1>{{ article.title }}</h1>
+	<p>Nunc porta vehicula mauris, a hendrerit dolor tempor sed. Etiam euismod dignissim fermentum. Maecenas tincidunt finibus auctor. Proin nec tempus nulla.</p>
+</div>
+
+<!-- Blog Detail-->
+<div class="helix-blog-page-wrapper">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-9 ">
+				<div class="helix-boxed-container blog-page">
+					<div class="content-wrapper clearfix ">
+						<img src="{{ asset('img/blog/' ~ article.id ~ "/1.jpg") }}" alt="" class="img-responsive" style="width:758px;height:350px">
+						<div class="heading">
+							<h2 class="title">{{ article.title }}</h2>
+							<div class="meta">
+								<h3>par: {{ user.firstname }} {{ user.lastname }}</h3>
+								<h3>le: {{ article.createdAt|date('d/m/Y') }}</h3>
+								<h3> {{ comments|length }} Comments</h3>
+							</div>
+						</div>
+						<div class="info-block single-post">
+							{{ article.content|nl2br }}
+						</div>
+					</div>
+					<div class="blog-post-footer">
+						<div class="post-footer clearfix">
+							<div class="tags clearfix">
+								<div><i class="ion-ios-pricetag-outline"></i><span>Tags:</span></div>
+								<ul class="tags-list clearfix">
+									{% for tag in article.tags %}
+									<li><a href="#">{{ tag }}</a>,</li>
+									{% endfor %}
+								</ul>
+							</div>
+							<ul class="social-media">
+								<li><a href="#"><i class="ion-social-facebook"></i></a></li>
+								<li><a href="#"><i class="ion-social-twitter"></i></a></li>
+								<li><a href="#"><i class="ion-social-googleplus"></i></a></li>
+								<li><a href="#"><i class="ion-email"></i></a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="about-author no-bg clearfix">
+						<img src="{{ asset('assets/img/mini/comm-2.jpg') }}" alt="">
+						<div class="description">
+							<h3>{{ user.firstname }} {{ user.lastname }}</h3>
+							<p>Mauris ante tellus, malesuada eget varius quis, laciniaz laoreet arcu. Morbi id lorem consequat, sodales mi non, dictum nibh. Curabitur commodo et metus quis tempor tortor. Vivamus eros dolor, auctor aliquet dolor sit amet, euismod imperdiet ex.</p>
+							<ul class="social-media">
+								<li><a href="#"><i class="ion-plus-round"></i>Facebook </a></li>
+								<li><a href="#"><i class="ion-plus-round"></i>Twitter</a></li>
+								<li><a href="#"><i class="ion-plus-round"></i>Google Plus</a></li>
+								<li><a href="#"><i class="ion-plus-round"></i>Linkedin</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="helix-boxed-container clearfix comments-wrapper">
+					<h2>Il y a {{ comments|length }}
+						{% if comments|length > 1 %}
+						commentaires
+						{% else %}
+						commentaire
+						{% endif %}
+					</h2>
+					{% for comment in comments %}
+					<div class="helix-comment clearfix">
+						<div class="comment-content">
+							<div class="clearfix">
+								<div class="user">
+									<h3>{{ comment.user.firstname }} {{ comment.user.lastname }}</h3>
+									<h5>{{ comment.createdAt|date('d/m/Y H:i') }}</h5>
+								</div>
+							</div>
+							<p>{{ comment.content }}</p>
+						</div>
+						{% if is_granted('ROLE_ADMIN') %}
+						<a href="{{ path('deleteComment', {'id':article.id, 'comment': comment.id}) }}">Supprimer</a>
+							{% endif %}
+						</div>
+						{% endfor %}
+						<div class="helix-boxed-container clearfix comment-form-wrapper ">
+							<h2>Laisse ton avis</h2>
+							{% if app.user.username is defined %}
+							<form action="{{ path('addComment', {'id': article.id}) }}" class="helix-comment-form clearfix" method="POST">
+								<div class="field">
+									<h4>message*</h4>
+									<textarea name="content"></textarea>
+								</div>
+								<div class="field">
+									<button class="btn btn-normal btn-solid">Submit</button>
+								</div>
+							</form>
+							{% else %}
+							<a href='/login'>Veuillez vous connecter</a>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="helix-sidebar">
+						<div class="sidebar-widget search">
+							<h4 class="title">Recherche</h4>
+							<div class="widget-content">
+								<form action="{{ path('searchBlog') }}" class="sidebar-form" method="POST">
+									<div class="field">
+										<input type="text" name="search" placeholder="Ce que vous cherchez">
+									</div>
+									<button type="submit"><i class="ion-ios-search-strong"></i></button>
+								</form>
+							</div>
+						</div>
+						<div class="sidebar-widget recent-posts">
+							<h4 class="title">Recent Posts</h4>
+							<div class="widget-content">
+								<ul class="posts-list">
+									{% for lastArticle in lastArticles %}
+									<li class="clearfix"><a href="{{ path('showBlogArticle', {'id': lastArticle.id}) }}"><img src="{{ asset('img/blog/'~ lastArticle.id ~ '/1.jpg') }}" style="width:100px;" alt=""></a><a href="{{ path('showBlogArticle', {'id': lastArticle.id}) }}" class="text">{{ lastArticle.title[:35] }}</a></li>
+									{% endfor %}
+								</ul>
+							</div>
+						</div>
+						<div class="sidebar-widget advertisement">
+							<h4 class="title">Advertisement</h4>
+							<div class="widget-content">
+								<div class="ad-banner">
+									<h2>Your Ad Here</h2>
+								</div>
+							</div>
+						</div>
+						<div class="sidebar-widget subscribe">
+							<h4 class="title">S'abonner</h4>
+							<div class="widget-content">
+								<p>S'abonner permet de suivre nos activités.</p>
+								<form action="{{ path('subRegister') }}" class="sidebar-form" method="POST">
+									<div class="field">
+										<input type="email" name="email" placeholder="Enter your email here">
+									</div>
+									<button class="btn btn-normal btn-solid">Subscribe</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% endblock %}

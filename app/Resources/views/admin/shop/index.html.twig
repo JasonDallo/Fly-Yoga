@@ -1,0 +1,35 @@
+{% extends 'baseadmin.html.twig' %}
+{% block body %}
+<a href="{{ path('addArticle') }}">Ajouter un article</a>
+{% for article in articles %}
+<!--Card-->
+<div class="card">
+
+    <!--Card image-->
+    <div class="view overlay hm-white-slight">
+        <img src="{{ asset('img/shop/' ~ article.id ~ '.jpg') }}" class="img-fluid" alt="" style="width:150px">
+        <a href="#">
+            <div class="mask"></div>
+        </a>
+    </div>
+    <!--/.Card image-->
+
+    <!--Card content-->
+    <div class="card-block">
+        <!--Title-->
+        <h4 class="card-title">{{ article.name }}</h4>
+        <!--Text-->
+        <p class="card-text">{{ article.description }}.</p>
+        <a href="{{ path('editProduct', {id :article.id}) }}" class="btn btn-primary">Modifier</a>
+        <form method="POST" action="{{ path('deleteProduct') }}">
+        <input type="hidden" name="id" value="{{ article.id }}">
+        <button class="btn btn-primary">Supprimer</button>
+        </form>
+    </div>
+    <!--/.Card content-->
+
+</div>
+<!--/.Card-->
+    {% endfor %}
+
+    {% endblock %}

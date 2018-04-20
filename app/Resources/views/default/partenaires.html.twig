@@ -1,0 +1,41 @@
+{% extends 'basepartner.html.twig' %}
+{% block body %}
+<style>
+.demo-card-wide{
+	margin: 15px;
+	background-color: #7f8c8d;
+	-moz-box-shadow: 10px 10px 5px 0px #656565;
+    -webkit-box-shadow: 10px 10px 5px 0px #656565;
+    -o-box-shadow: 10px 10px 5px 0px #656565;
+	box-shadow: 10px 10px 5px 0px #656565;
+}
+img{
+	width: 100%;
+}
+.mdl-card__title-text{
+	text-decoration: none;
+}
+
+</style>
+{% for partner in partners %}
+<div class="demo-card-wide mdl-card mdl-shadow--2dp">
+<a href=''>
+<img src="{{ asset('img/partenaires/'~ partner.id ~ '.jpg') }}"></a>
+  <div class="mdl-card__title">
+    <a href="{{ path('showPartner',{id: partner.id}) }}"><h2 class="mdl-card__title-text">{{ partner.name}}</h2></a>
+  </div>
+  <div class="mdl-card__supporting-text">{{ partner.description }}
+  </div>
+  <div class="mdl-card__actions mdl-card--border">
+    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+      Voir les missions
+    </a>
+  </div>
+  <div class="mdl-card__menu">
+    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+      <i class="material-icons">share</i>
+    </button>
+  </div>
+</div>
+{% endfor %}
+{% endblock %}

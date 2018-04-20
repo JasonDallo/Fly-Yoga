@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Fly Yoga Home Page</title>
+
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="{{ asset('assets/owl-carousel/assets/owl.carousel.css') }}">
+	<!-- RS5.0 Main Stylesheet -->
+	<link rel="stylesheet" type="text/css" href="{{ asset('assets/revolution/css/settings.css') }}">
+	<!-- RS5.0 Layers and Navigation Styles -->
+	<link rel="stylesheet" type="text/css" href="{{ asset('assets/revolution/css/layers.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('assets/revolution/css/navigation.css') }}">
+	<!-- <link rel="stylesheet" type="text/css" href="assets/revolution/assets/css/noneed.css"> -->
+	<!-- Theme CSS-->
+	<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+
+
+</head>
+<body>
+
+
+	<!-- Navigation -->
+	<div class="helix-navigation navigation-boxed">
+		<div class="container navbar">
+			<div class="nav-top-bar clearfix">
+				<div class="short-info">
+					<h4>Bienvenue sur le site de Fly-Yoga.
+						Bonjour, 
+						{% if app.user.username is defined %}
+						{{ app.user.username }}
+
+						<h4><a href="/logout">Se déconnecter</a></h4>
+						{% else %}
+						invité
+
+						<h4><a data-toggle="modal" data-target="#registrationModal">S'inscrire</a></h4>
+
+						<h4><a data-toggle="modal" data-target="#loginModal">Se Connecter</a></h4>
+						{% endif %}
+
+					</h4>
+					<h4><a href="#">Nos offres spéciales</a></h4>
+					{% if app.user.username is defined %}
+					<h4>
+						<a href="/me">Mon compte</a>
+					</h4>
+					{% endif %}
+				</div>
+				<div class="social-media">
+					<ul>
+						<li><a href="https://www.facebook.com/FlyYoga.fr/"><i class="ion-social-facebook"></i></a></li>
+						<li><a href="https://twitter.com/fly_yoga"><i class="ion-social-twitter"></i></a></li>
+						<li><a href="#"><i class="ion-social-googleplus"></i></a></li>
+						<li><a href="{{ path('contact') }}"><i class="ion-email"></i></a></li>
+					</ul>
+				</div>
+			</div>
+			<nav class="main-nav clearfix">
+				<div class="logo-wrapper">
+					<a href="/" class="logo">Fly - Yoga</a>
+				</div>
+				<ul id="main-menu">
+					<li class="menu-item">
+						<a href="/" class="active">Acceuil</a>
+					</li>
+					<li class="menu-item">
+						<a href='/courses'><span>Cours</span></a>
+						<ul class="submenu first-submenu">
+							<li><a href="class-grid.html">Class Grid</a></li>
+							<li><a href="class-list.html">Class List</a></li>
+							<li><a href="class-sidebar.html">Class Sidebar</a></li>
+							<li><a href="class-detail.html">Class Detail</a></li>
+						</ul>
+					</li>
+					<li class="menu-item">
+						<a href='/partenaires'><span>Partenaires</span></a>
+						<ul class="submenu first-submenu">
+							<li><a href="event-grid.html">Event Grid</a></li>
+							<li><a href="event-list.html">Event List</a></li>
+							<li><a href="event-sidebar.html">Event Sidebar</a></li>
+							<li><a href="event-detail.html">Event Detail</a></li>
+						</ul>
+					</li>
+					<li class="menu-item">
+						<span>Nous concernant</span>
+						<ul class="submenu first-submenu">
+							<li><a href="{{ path('Blog') }}">Blog</a></li>
+							<li><a href="{{ path('contact') }}">Contact</a></li>
+						</ul>
+					</li>
+					<li class="menu-item">
+						<a href="/shop"><span>Boutique</span></a>
+						<ul class="submenu first-submenu">
+							<li><a href="/shop">Shop</a></li>
+							<li><a href="{{ path('showCart') }}">Panier</a></li>
+						</ul>
+					</li>
+
+				</ul>
+				<div class="pull-right">
+					<div id="search-bar">
+						<form action="#" class="search-form">
+							<button><i class="ion-ios-search-strong"></i></button>
+							<input type="search" name="search" placeholder="I'm looking for...">
+						</form>
+					</div>
+					<button id="menu-toggle">
+						<i class="ion-android-menu"></i>
+					</button>
+					<button id="search-toggle">
+						<i class="ion-ios-search-strong"></i>
+					</button>
+				</div>
+			</nav>
+		</div>
+	</div>
+
+	<!-- Slider -->
+	<div class="rev_slider_wrapper">
+		<div id="helix-main-slider" class="rev_slider"  data-version="5.0">
+			<ul>
+				<!-- Slide 1 -->
+				<li data-transition="fade" data-thumb="assets/img/slides/slide-1.jpg">
+					<!-- Main Image -->
+					<img src="assets/img/slides/slide-1.jpg"  alt="\!/">
+
+					<!-- Layer 1 -->
+
+					<div class="tp-caption small-caption tp-resizeme "  id="slide-1-layer-1" data-x="center" data-hoffset="0" data-y="top" data-voffset="276" data-width="none" data-height="none" data-whitespace="nowrap" data-transform_idle="o:1;" data-transform_in="y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:2000;e:Power4.easeInOut;" data-transform_out="y:[-100%];s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;"  data-mask_in="x:0px;y:[-100%];s:inherit;e:inherit;" data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;" data-start="1500" data-splitin="none" data-splitout="none" data-responsive_offset="on">Fly Yoga</div> 
+
+					<!-- Layer 2 -->
+					<div class="tp-caption big-caption tp-resizeme "  id="slide-1-layer-2" data-x="center" data-hoffset="0"  data-y="center" data-voffset="0" data-width="none" data-height="none" data-whitespace="nowrap" data-transform_idle="o:1;" data-transform_in="x:[105%];z:0;rX:45deg;rY:0deg;rZ:90deg;sX:1;sY:1;skX:0;skY:0;s:2000;e:Power4.easeInOut;" data-transform_out="y:[100%];s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;" data-mask_in="x:0px;y:0px;s:inherit;e:inherit;" data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;" data-start="1000" data-splitin="chars" data-splitout="none" data-responsive_offset="on" data-elementdelay="0.05">Bienvenue entre <br> ciel et terre</div>
+
+					<!-- Layer 3 -->
+					<div class="tp-caption btn btn-big btn-solid" id="slide-1-layer-3" data-x="center" data-hoffset="0" data-y="bottom" data-voffset="200" data-width="['auto']" data-height="['auto']" data-transform_idle="o:1;" data-transform_hover="o:1;rX:0;rY:0;rZ:0;z:0;s:100;e:Power1.easeInOut;" data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:2000;e:Power4.easeInOut;" data-transform_out="s:400;s:400;" data-start="1500" data-splitin="none" data-splitout="none" data-actions='[{"event":"click","action":"simplelink","target":"_self","url":"#"}]' data-responsive_offset="on" data-responsive="on">Plus</div>
+				</li>
+				<!-- Slide 2 -->
+				<li data-transition="fade" data-thumb="assets/img/slides/slide-2.jpg">
+					<!-- Main Image -->
+					<img src="assets/img/slides/slide-2.jpg"  alt="">
+
+					<!-- Layer 1 -->
+					<div class="tp-caption small-caption tp-resizeme " id="slide-2-layer-1" data-x="center" data-hoffset="0" data-y="top" data-voffset="276" data-width="none" data-height="none" data-whitespace="nowrap" data-transform_idle="o:1;" data-transform_in="y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:2000;e:Power4.easeInOut;" data-transform_out="y:[-100%];s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;"  data-mask_in="x:0px;y:[-100%];s:inherit;e:inherit;" data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;" data-start="1500" data-splitin="none" data-splitout="none" data-responsive_offset="on">Fly Yoga</div>
+
+
+					<!-- Layer 2 -->
+					<div class="tp-caption big-caption tp-resizeme "  id="slide-2-layer-2" data-x="center" data-hoffset="0"  data-y="center" data-voffset="0" data-width="none" data-height="none" data-whitespace="nowrap" data-transform_idle="o:1;" data-transform_in="x:[105%];z:0;rX:45deg;rY:0deg;rZ:90deg;sX:1;sY:1;skX:0;skY:0;s:2000;e:Power4.easeInOut;" data-transform_out="y:[100%];s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;" data-mask_in="x:0px;y:0px;s:inherit;e:inherit;" data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;" data-start="1000" data-splitin="chars" data-splitout="none" data-responsive_offset="on" data-elementdelay="0.05">Bienvenue chez <br> Fly-Yoga</div>
+
+					<!-- Layer 3 -->
+					<div class="tp-caption btn btn-big btn-solid" id="slide-2-layer-3" data-x="center" data-hoffset="0" data-y="bottom" data-voffset="200" data-width="['auto']" data-height="['auto']" data-transform_idle="o:1;" data-transform_hover="o:1;rX:0;rY:0;rZ:0;z:0;s:100;e:Power1.easeInOut;" data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:2000;e:Power4.easeInOut;" data-transform_out="s:400;s:400;" data-start="1500" data-splitin="none" data-splitout="none" data-actions='[{"event":"click","action":"simplelink","target":"_self","url":"#"}]' data-responsive_offset="on" data-responsive="on">Plus</div>
+				</li>
+			</ul>
+		</div>
+
+	</div>
+
+	<!-- Features -->
+	<div class="helix-features-wrapper">
+		<div class="container ">
+			<div class="section-name">
+				<h4>
+					<span class="lines-box left">
+						<span class="line three"></span>
+						<span class="line two"></span>
+						<span class="line one"></span>
+					</span>
+					<span class="text">About Fly Yoga club</span>
+					<span class="lines-box right">
+						<span class="line one"></span>
+						<span class="line two"></span>
+						<span class="line three"></span>
+					</span>
+				</h4>
+				<h2>Débutes ta journée vers une vie meilleure faite d'amour, de paix et de joie</h2>
+			</div>
+			<div class="row features">
+				<div class="col-sm-4 feature left color-1">
+					<i class="ion-ios-checkmark-outline"></i>
+					<h3>Professeurs expérimentés</h3>
+					<p>Phasellus at quam tristique, cursus tellus vitae, convallis neque sed a lacin. Etiam dignissim sit amet felis ac sagittis.</p>
+				</div>
+				<div class="col-sm-4 feature center color-2">
+					<i class="ion-ios-flower-outline"></i>
+					<h3>Environnement incroyable</h3>
+					<p>Phasellus at quam tristique, cursus tellus vitae, convallis neque sed a lacin. Etiam dignissim sit amet felis ac sagittis.</p>
+				</div>
+				<div class="col-sm-4 feature right color-3">
+					<i class="ion-ios-bolt-outline"></i>
+					<h3>Activités extérieures</h3>
+					<p>Phasellus at quam tristique, cursus tellus vitae, convallis neque sed a lacin. Etiam dignissim sit amet felis ac sagittis.</p>
+				</div>
+			</div>
+			<div class="more-button">
+				<div class="btns-wrapper">
+					<a href="#" class="btn btn-ghost btn-normal">Plus</a>
+					<a href="#" class="btn btn-solid btn-normal">S'abonner</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Classes -->
+	<div class="helix-classes-wrapper-outer">
+		<div class="container">
+			<div class="section-name">
+				<h4>
+					<span class="lines-box left">
+						<span class="line three"></span>
+						<span class="line two"></span>
+						<span class="line one"></span>
+					</span>
+					<span class="text">Nos cours</span>
+					<span class="lines-box right">
+						<span class="line one"></span>
+						<span class="line two"></span>
+						<span class="line three"></span>
+					</span>
+				</h4>
+				<h2>Phrase de présentation</h2>
+			</div>
+		</div>
+		<div class="container ">
+			<div class="helix-boxed-container carousel">
+				<div class="top-bar clearfix">
+					<h4 class="title">Liste des différents cours</h4>
+					<div class="top-icons">
+						<div class="customPrevBtn"><i class="ion-chevron-left"></i></div>
+						<div class="customNextBtn"><i class="ion-chevron-right"></i></div>
+					</div>
+				</div>
+				<div class="content-wrapper">
+					<div id="helix-classes-carousel" class="owl-carousel">
+						<div class="item">
+							<div class="helix-content-box medium carousel">
+								<img src="assets/img/classes/img-1.jpg" alt="">
+								<div class="meta">
+									<a href="class-detail.html"><h3 class="item-name">This is Class Title</h3></a>
+									<h3 class="detail">Professeur:BETTY JOHNSTON</h3>
+								</div>
+								<a href="#" class="link-btn">Plus <i class="ion-arrow-right-c"></i></a>
+							</div>
+						</div>
+						<div class="item">
+							<div class="helix-content-box medium carousel">
+								<img src="assets/img/classes/img-2.jpg" alt="">
+								<div class="meta">
+									<a href="class-detail.html"><h3 class="item-name">This is Class Name</h3></a>
+									<h3 class="detail">Professeur: SHIRLEY MORALES</h3>
+								</div>
+								<a href="#" class="link-btn">Plus <i class="ion-arrow-right-c"></i></a>
+							</div>
+						</div>
+						<div class="item">
+							<div class="helix-content-box medium carousel">
+								<img src="assets/img/classes/img-3.jpg" alt="">
+								<div class="meta">
+									<a href="class-detail.html"><h3 class="item-name">This is Class Name</h3></a>
+									<h3 class="detail">Professeur: f CLARK</h3>
+								</div>
+								<a href="#" class="link-btn">Plus <i class="ion-arrow-right-c"></i></a>
+							</div>
+						</div>
+						<div class="item">
+							<div class="helix-content-box medium carousel">
+								<img src="assets/img/classes/img-4.jpg" alt="">
+								<div class="meta">
+									<a href="class-detail.html"><h3 class="item-name">This is Class Name</h3></a>
+									<h3 class="detail">Professeur: CHRISTIAN RILEY</h3>
+								</div>
+								<a href="#" class="link-btn">Plus <i class="ion-arrow-right-c"></i></a>
+							</div>
+						</div>
+						<div class="item">
+							<div class="helix-content-box medium carousel">
+								<img src="assets/img/classes/img-5.jpg" alt="">
+								<div class="meta">
+									<a href="class-detail.html"><h3 class="item-name">This is Class Name</h3></a>
+									<h3 class="detail">Professeur: JULIA CLARK</h3>
+								</div>
+								<a href="#" class="link-btn">Plus <i class="ion-arrow-right-c"></i></a>
+							</div>
+						</div>
+						<div class="item">
+							<div class="helix-content-box medium carousel">
+								<img src="assets/img/classes/img-6.jpg" alt="">
+								<div class="meta">
+									<a href="class-detail.html"><h3 class="item-name">This is Class Name</h3></a>
+									<h3 class="detail">Professeur: Jason Dallo</h3>
+								</div>
+								<a href="#" class="link-btn">Plus <i class="ion-arrow-right-c"></i></a>
+							</div>
+						</div>
+						<div class="item">
+							<div class="helix-content-box medium carousel">
+								<img src="assets/img/classes/img-7.jpg" alt="">
+								<div class="meta">
+									<a href="class-detail.html"><h3 class="item-name">This is Class Name</h3></a>
+									<h3 class="detail">Professeur: Jason Dallo</h3>
+								</div>
+								<a href="#" class="link-btn">Plus <i class="ion-arrow-right-c"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Teaser -->
+	<div class="helix-teaser-wrapper">
+		<div class="container">
+			<div class="heading">
+				<h1>Le YOGA Aérien.</h1>
+				<h2>La méthode de yoga aérien Fly Yoga© est accessible à tous. Recommandée de plus en plus aux personnes qui souffrent du mal de dos et de troubles spécifiques des articulations.</h2>
+			</div>
+			<div class="row teaser-wrapper">
+				<div class="col-sm-6 col-md-4 teaser-cards left">
+					<div class="teaser-card left top color-one">
+						<a href="#">Balance body and mind</a>
+						<p>Vivamus consequat, felis at aliquam elementum, massa sem dignissim.</p>
+					</div>
+					<div class="teaser-card left color-two">
+						<a href="#">Increase strength &amp; flexibility</a>
+						<p>Vivamus consequat, felis at aliquam elementum, massa sem dignissim.</p>
+					</div>
+				</div>
+				<div class="col-md-6  col-md-4 teaser-image">
+					<img src="assets/img/extra/flyyoga.png" alt="" class="img-responsive">
+				</div>
+				<div class="col-sm-6 col-md-4 teaser-cards right">
+					<div class="teaser-card right top color-three">
+						<a href="#">Eliminate toxins from body</a>
+						<p>Vivamus consequat, felis at aliquam elementum, massa sem dignissim.</p>
+					</div>
+					<div class="teaser-card right color-four">
+						<a href="#">Build core strength</a>
+						<p>Vivamus consequat, felis at aliquam elementum, massa sem dignissim.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Instructors -->
+	<div class="helix-instructors-wrapper">
+		<div class="container">
+			<div class="section-name">
+				<h4>
+					<span class="lines-box left">
+						<span class="line three"></span>
+						<span class="line two"></span>
+						<span class="line one"></span>
+					</span>
+					<span class="text">Entraineurs expérimentés</span>
+					<span class="lines-box right">
+						<span class="line one"></span>
+						<span class="line two"></span>
+						<span class="line three"></span>
+					</span>
+				</h4>
+				<h2>with many years of teaching yoga, our trainers are willing to give you the best instruction</h2>
+			</div>
+			<div class="row instructors-wrapper">
+				{% for prof in profs %}
+				<div class="col-md-3 col-sm-6 col-xs-6">
+					<div class="helix-instructor">
+						<div class="about-instructor">
+							<img src="assets/img/mini/instructor-1.jpg" alt="">
+							<h3 class="name">{{ prof.firstname ~ ' ' ~ prof.lastname }}</h3>
+							<h3 class="function">Yoga Trainer</h3>
+						</div>
+						<div class="social-media">
+							<a href="http://facebook.com/"><i class="ion-social-facebook"></i></a>
+							<a href="https://twitter.com/" class="center"><i class="ion-social-twitter"></i></a>
+							<a href="https://www.instagram.com/"><i class="ion-social-instagram"></i></a>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+				<div class="more-button">
+					<div class="btns-wrapper">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Testimonials -->
+		<div class="helix-testimonials-wrapper">
+			<div class="parallax-overlay"></div>
+			<div class="container">
+				<div class="section-name">
+					<h4>
+						<span class="lines-box left">
+							<span class="line three"></span>
+							<span class="line two"></span>
+							<span class="line one"></span>
+						</span>
+						<span class="text">TÉMOIGNAGES</span>
+						<span class="lines-box right">
+							<span class="line one"></span>
+							<span class="line two"></span>
+							<span class="line three"></span>
+						</span>
+					</h4>
+					<h2>what our customers say about us &amp; the reasons why you should choose Fly yoga</h2>
+				</div>
+				<div class="row testimonials-wrapper">
+					<div class="col-md-8 col-md-offset-2">
+						<div id="helix-testimonials-carousel" class="owl-carousel owl-theme">
+							<div class="item">
+								<div class="helix-testimonial">
+									<p>“Cras quis consequat nisl, at malesuada sapien. Mauris ultricies nisi getbibendum, sit amet euismod mi gravida.”</p>
+									<div class="meta clearfix">
+										<h3>Nicolas Hayes</h3>
+										<div class="rating-stars">
+											<i class="ion-ios-star"></i>
+											<i class="ion-ios-star"></i>
+											<i class="ion-ios-star"></i>
+											<i class="ion-ios-star"></i>
+											<i class="ion-ios-star"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="helix-testimonial">
+									<p>“Donec condimentum id erat a molestie. In luctus quis risus cursus faucibus. Cras convallis finibus porta. Integer in ligula.”</p>
+									<div class="meta clearfix">
+										<h3>Sarah Long</h3>
+										<div class="rating-stars">
+											<i class="ion-ios-star"></i>
+											<i class="ion-ios-star"></i>
+											<i class="ion-ios-star"></i>
+											<i class="ion-ios-star empty"></i>
+											<i class="ion-ios-star empty"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="helix-testimonial">
+									<p>“Cras quis consequat nisl, at malesuada sapien. Mauris ultricies nisi eget bendum, sit amet euismod mi gravida.”</p>
+									<div class="meta clearfix">
+										<h3>Mark Guzman</h3>
+										<div class="rating-stars">
+											<i class="ion-ios-star"></i>
+											<i class="ion-ios-star"></i>
+											<i class="ion-ios-star"></i>
+											<i class="ion-ios-star "></i>
+											<i class="ion-ios-star "></i>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="item">
+								<div class="helix-testimonial">
+									<p>“Donec condimentum id erat a molestie. In luctus quis risus cursus faucibus. Cras convallis finibus porta. Integer in ligula.”</p>
+									<div class="meta clearfix">
+										<h3>Elizabeth Scott</h3>
+										<div class="rating-stars">
+											<i class="ion-ios-star"></i>
+											<i class="ion-ios-star"></i>
+											<i class="ion-ios-star"></i>
+											<i class="ion-ios-star empty"></i>
+											<i class="ion-ios-star empty"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Pricing -->
+		<div class="helix-pricing-wrapper">
+			<div class="container">
+				<div class="section-name">
+					<h4>
+						<span class="lines-box left">
+							<span class="line three"></span>
+							<span class="line two"></span>
+							<span class="line one"></span>
+						</span>
+						<span class="text">Cartes d'achat</span>
+						<span class="lines-box right">
+							<span class="line one"></span>
+							<span class="line two"></span>
+							<span class="line three"></span>
+						</span>
+					</h4>
+					<h2>Fly Yoga vous mets à disposition des cartes permettant d'accéder aux cours prévus.</h2>
+
+				</div>
+				<div class="tab-content row helix-pricing-tables">
+					<div class="tab-pane active" id="tab-1">
+						<div class="col-md-4 col-sm-4">
+							<div class="helix-pricing-table one ">
+								<div class="heading">
+									<h4>Carte à</h4>
+									<div class="price-wrapper">
+										<span class="icon">€</span>
+										<span class="price">20</span>
+									</div>
+								</div>
+								<ul class="items">
+									<li><span>Access club facilities</span></li>
+									<li><span>Outdoor activities</span></li>
+									<li><span>15% off all massage treatments</span></li>
+									<li><span>Free swags</span></li>
+								</ul>
+								<a href="#" class="btn btn-normal btn-solid btn-gray">Acheter</a>
+							</div>
+						</div>
+						<div class="col-md-4 col-sm-4">
+							<div class="helix-pricing-table one ">
+								<div class="heading">
+									<h4 class="special-offer">Carte à</h4>
+									<div class="price-wrapper">
+										<span class="icon">€</span>
+										<span class="price">50</span>
+									</div>
+								</div>
+								<ul class="items">
+									<li><span>Access club facilities</span></li>
+									<li><span>Outdoor activities</span></li>
+									<li><span>50% off all massage treatments</span></li>
+									<li><span>Free T-shirt &amp; Swags</span></li>
+								</ul>
+								<a href="#" class="btn btn-normal btn-solid">Acheter</a>
+							</div>
+						</div>
+						<div class="col-md-4 col-sm-4">
+							<div class="helix-pricing-table one ">
+								<div class="heading">
+									<h4>Carte à</h4>
+									<div class="price-wrapper">
+										<span class="icon">€</span>
+										<span class="price">75</span>
+									</div>
+								</div>
+								<ul class="items">
+									<li><span>Access club facilities</span></li>
+									<li><span>Outdoor activities</span></li>
+									<li><span>Free all massage treatments</span></li>
+									<li><span>Free T-shirt &amp; Swags</span></li>
+								</ul>
+								<a href="#" class="btn btn-normal btn-solid btn-gray">Acheter</a>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Blog -->
+	<div class="helix-blog-wrapper">
+		<div class="container">
+			<div class="section-name">
+				<h4>
+					<span class="lines-box left">
+						<span class="line three"></span>
+						<span class="line two"></span>
+						<span class="line one"></span>
+					</span>
+					<span class="text">Dernières activités</span>
+					<span class="lines-box right">
+						<span class="line one"></span>
+						<span class="line two"></span>
+						<span class="line three"></span>
+					</span>
+				</h4>
+				<h2>Keep up to date with us</h2>
+			</div>
+		</div>
+		<div class="container ">
+			<div class="helix-boxed-container carousel">
+				<div class="top-bar clearfix">
+					<h4 class="title">Recent Blog Posts</h4>
+					<div class="top-icons">
+						<div class="customPrevBtn"><i class="ion-chevron-left"></i></div>
+						<div class="customNextBtn"><i class="ion-chevron-right"></i></div>
+					</div>
+				</div>
+				<div class="content-wrapper">
+					<div id="helix-blog-carousel" class="owl-carousel">
+						<div class="item">
+							<div class="helix-content-box medium carousel">
+								<img src="assets/img/blog/img-1.jpg" alt="">
+								<div class="meta">
+									<a href="class-detail.html"><h3 class="item-name">This is blog Title</h3></a>
+									<h3 class="detail">By:Timothy Spencer</h3>
+								</div>
+								<a href="#" class="link-btn">Learn More <i class="ion-arrow-right-c"></i></a>
+							</div>
+						</div>
+						<div class="item">
+							<div class="helix-content-box medium carousel">
+								<img src="assets/img/blog/img-2.jpg" alt="">
+								<div class="meta">
+									<a href="class-detail.html"><h3 class="item-name">This is blog Name</h3></a>
+									<h3 class="detail">By: Timothy Spencer</h3>
+								</div>
+								<a href="#" class="link-btn">Learn More <i class="ion-arrow-right-c"></i></a>
+							</div>
+						</div>
+						<div class="item">
+							<div class="helix-content-box medium carousel">
+								<img src="assets/img/blog/img-3.jpg" alt="">
+								<div class="meta">
+									<a href="class-detail.html"><h3 class="item-name">This is blog Name</h3></a>
+									<h3 class="detail">By: Timothy Spencer</h3>
+								</div>
+								<a href="#" class="link-btn">Learn More <i class="ion-arrow-right-c"></i></a>
+							</div>
+						</div>
+						<div class="item">
+							<div class="helix-content-box medium carousel">
+								<img src="assets/img/blog/img-4.jpg" alt="">
+								<div class="meta">
+									<a href="class-detail.html"><h3 class="item-name">This is blog Name</h3></a>
+									<h3 class="detail">By: Timothy Spencer</h3>
+								</div>
+								<a href="#" class="link-btn">Learn More <i class="ion-arrow-right-c"></i></a>
+							</div>
+						</div>
+						<div class="item">
+							<div class="helix-content-box medium carousel">
+								<img src="assets/img/blog/img-5.jpg" alt="">
+								<div class="meta">
+									<a href="class-detail.html"><h3 class="item-name">This is blog Name</h3></a>
+									<h3 class="detail">By: Timothy Spencer</h3>
+								</div>
+								<a href="#" class="link-btn">Learn More <i class="ion-arrow-right-c"></i></a>
+							</div>
+						</div>
+						<div class="item">
+							<div class="helix-content-box medium carousel">
+								<img src="assets/img/blog/img-6.jpg" alt="">
+								<div class="meta">
+									<a href="class-detail.html"><h3 class="item-name">This is blog Name</h3></a>
+									<h3 class="detail">By: Timothy Spencer</h3>
+								</div>
+								<a href="#" class="link-btn">Learn More <i class="ion-arrow-right-c"></i></a>
+							</div>
+						</div>
+						<div class="item">
+							<div class="helix-content-box medium carousel">
+								<img src="assets/img/blog/img-7.jpg" alt="">
+								<div class="meta">
+									<a href="class-detail.html"><h3 class="item-name">This is blog Name</h3></a>
+									<h3 class="detail">By: Timothy Spencer</h3>
+								</div>
+								<a href="#" class="link-btn">Learn More <i class="ion-arrow-right-c"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- prefooter -->
+	<div class="helix-prefooter-wrapper">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-3 col-xs-6 helix-offer">
+					<div class="offer-details">
+						<h3>Sale up to 40%</h3>
+						<p>Vivamus consequat, felis at aliquam elementum</p>
+						<a href="shop-detail.html" class="btn btn-min btn-solid">Take a Look</a>
+					</div>
+				</div>
+
+				{% for item in items %}
+				<div class="col-md-3 col-xs-6 helix-product clearfix">
+					<div class="img-wrapper">
+						<img src="{{ asset('img/shop/' ~ item.id ~ '.jpg') }}" alt="\!/" class="img-responsive">
+					</div>
+					<div class="product-detail">
+						<a href="/shop/?id={{ item.id }}"><h3>
+							{% if item.name >  25 %}
+							{{ item.name[0:23] ~ ".." }}
+							{% else %}
+							{{ item.name }}
+							{% endif %}
+						</h3></a>
+						<h4>{{ item.prix }}€</h4>
+						<a href="/shop/?id={{ item.id }}" class="link-btn">Plus<i class="ion-arrow-right-c"></i></a>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
+	<!-- footer -->
+	<div class="helix-footer-wrapper">
+		<div class="container footer">
+			<div class="row">
+				<div class="col-sm-3">
+					<div class="footer-widget about">
+						<h4 class="title">About Fly yoga</h4>
+						<ul class="contact-details">
+							<li class="clearfix"><i class="ion-ios-location-outline"></i><p>61 rue Faubourg Poissonnière <br/> 75009 Paris</p></li>
+							<li class="clearfix"><i class="ion-information"></i><p>+33(0)6 49 49 62 56 <br/> contact@fly-yoga.fr <br/> http://www.fly-yoga.fr</p></li>
+						</ul>
+						<ul class="social-media"> 
+							<li><a href="https://www.facebook.com/FlyYoga.fr/" class="color-one"><i class="ion-social-facebook "></i></a></li>
+							<li><a href="https://twitter.com/fly_yoga" class="color-two"><i class="ion-social-twitter"></i></a></li>
+							<li><a href="#" class="color-three"><i class="ion-social-googleplus "></i></a></li>
+							<li><a href="#" class="color-four"><i class="ion-social-instagram "></i></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="footer-widget">
+						<h4 class="title">Twitter</h4>
+						<div id="helix-twitter"></div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="footer-widget">
+						<h4 class="title">Instagram</h4>
+						<ul id="helix-instafeed" class="clearfix"></ul>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="footer-widget newsletter">
+						<h4 class="title">Subcribe</h4>
+						<p>Tellus aliquam at. Pellentesque gravida vel eros et pretium</p>
+						<form action="#">
+							<div class="field">
+								<input type="text" name="name" placeholder="Enter your name">
+							</div>
+							<div class="field">
+								<input type="email" name="email" placeholder="Enter your email">
+							</div>
+							<button class="btn btn-min btn-solid">Subsmit</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="multicolor-line"></div>
+		<div class="container footer-bar">
+			<div class="row">
+				<div class="col-md-6">
+					<p class="copyright">&copy; 2016 Fly-Yoga. All rights reserved. Created with  <i class="ion-heart"></i></p>
+				</div>
+				<div class="col-md-6">
+					<ul class="footer-menu">
+						<li><a href="#">Terms of Use</a></li>
+						<li><a href="#">Privacy Policy</a></li>
+						<li><a href="#">Disclaimer</a></li>
+						<li><a href="#">FAQs</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+	<div id="registrationModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Inscription</h4>
+				</div>
+				<div class="modal-body">
+					<form method='POST' action="">
+						<div class="form-group">
+							<label for="exampleInputEmail1">Email</label>
+							<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+						</div>
+						<div class="form-group">
+							<label for="exampleInputPassword1">Nom d'utilisateur</label>
+							<input type="text" class="form-control" id="exampleInputPassword1" placeholder="Nom d'utilisateur">
+						</div>
+						<div class="form-group">
+							<label for="exampleInputPassword1">Mot de passe</label>
+							<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+						</div>
+						<div class="form-group">
+							<label for="exampleInputPassword1">Confirmation</label>
+							<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Repeat">
+						</div>
+						<div class="form-group">
+							<label for="exampleInputPassword1">Nom</label>
+							<input type="text" class="form-control" id="exampleInputPassword1" placeholder="Nom de famille">
+						</div>
+						<div class="form-group">
+							<label for="exampleInputPassword1">Prénom</label>
+							<input type="text" class="form-control" id="exampleInputPassword1" placeholder="Prénom">
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary">S'enregister</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+						</div>
+					</form>
+				</div>
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+	</div>
+
+	<div id="loginModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Connexion</h4>
+				</div>
+				<div class="modal-body">
+					<form method='POST' action="">
+						<div class="form-group">
+							<label for="exampleInputEmail1">Email ou Nom d'utilisateur</label>
+							<input type="text" class="form-control" id="exampleInputEmail1" placeholder="....">
+						</div>
+						<div class="form-group">
+							<label for="exampleInputPassword1">Mot de passe</label>
+							<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+						</div>
+
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-primary">Se Connecter</button>
+					</form>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+	<script type="text/javascript" src="{{ asset('assets/js/jquery2.min.js')}}"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="{{ asset('assets/owl-carousel/owl.carousel.min.js')}}"></script>
+	<script type="text/javascript" src="{{ asset('assets/js/twitterFetcher.js')}}"></script>
+	<script type="text/javascript" src="{{ asset('assets/js/moment.js')}}"></script>
+	<script type="text/javascript" src="{{ asset('assets/js/instafeed.min.js')}}"></script>
+	<!-- RS5.0 Core JS Files -->
+	<script type="text/javascript" src="{{ asset('assets/revolution/js/jquery.themepunch.tools.min838f.js?rev=5.0')}}"></script>
+	<script type="text/javascript" src="{{ asset('assets/revolution/js/jquery.themepunch.revolution.min838f.js?rev=5.0')}}"></script>
+	<script type="text/javascript" src="{{ asset('assets/revolution/js/extensions/revolution.extension.video.min.js')}}"></script>
+	<script type="text/javascript" src="{{ asset('assets/revolution/js/extensions/revolution.extension.slideanims.min.js')}}"></script>
+	<script type="text/javascript" src="{{ asset('assets/revolution/js/extensions/revolution.extension.navigation.min.js')}}"></script>
+	<script type="text/javascript" src="{{ asset('assets/revolution/js/extensions/revolution.extension.layeranimation.min.js')}}"></script>
+	<script type="text/javascript" src="{{ asset('assets/revolution/js/extensions/revolution.extension.actions.min.js')}}"></script>
+	<!-- Theme Script -->
+	<script type="text/javascript" src="{{ asset('assets/js/js.js')}}"></script>
+</body>
+</html>

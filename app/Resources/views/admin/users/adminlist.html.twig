@@ -1,0 +1,37 @@
+{% extends('baseadmin.html.twig') %}
+{% block body %}
+<table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Last Login</th>
+      <th>Roles</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for admin in admins %}
+    <tr>
+      <td>{{ admin.id }}</td>
+      <td>{{ admin.username }}</td>
+      <td>{{ admin.email }}</td>
+      <td>{{ admin.lastLogin|date('d/m/Y H:i') }}</td>
+      <td>{{ admin.roles|join(' / ') }}</td>
+      <td>
+          <a href="{{ path('demoteAdmin', {id:admin.id}) }}"<i class="material-icons">build</i></a>
+        </button>
+        </form>
+        <form method="post" action="{{ path('deleteUser') }}">
+        <input type="hidden" name="id" value="{{ admin.id }}">
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button-">
+          <i class="material-icons">clear</i>
+        </button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

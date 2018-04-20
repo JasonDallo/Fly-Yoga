@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Mails</title>
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/mdb/css/bootstrap.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/admin/mails/index.css') }}">
+
+
+</head>
+<body>
+
+	<div class="container">
+		<div class="row">
+
+			<div class="col-sm-9 col-md-10">
+				<h4>Fly-Yoga Mailer</h4>
+			</div>
+		</div>
+		<hr />
+		<div class="row">
+			<div class="col-sm-3 col-md-2">
+				<a href="{{ path('mailWriting') }}" class="btn btn-danger btn-sm btn-block" role="button">Ecrire</a>
+				<hr />
+				<ul class="nav nav-pills nav-stacked">
+				<li><i class="fa fa-folder-o" aria-hidden="true"></i>
+						<a href="/admin/mails" class="">Boite de réception</a></li>
+						<li><i class="fa fa-folder-o" aria-hidden="true"></i>
+						<a href="/admin/mails/sended" class="">Boite d'envoi</a></li>
+						<li><i class="fa fa-folder-o" aria-hidden="true"></i>
+						<a href="/admin/mails/deleted" class="">Corbeille</a></li>
+					{% for rep in repo %}
+					<li><i class="fa fa-folder-o" aria-hidden="true"></i>
+						<a href="" class="">{{ rep.name }}</a></li>
+						{% endfor %}
+<!-- 					<li class="active"><a href="" class="list-group-item">
+					<span class="badge pull-right"></span> Boite de réception </a>
+				</li> -->
+				<li class="newrepo"><i class="fa fa-folder" aria-hidden="true"></i>
+					<a>Nouveau dossier</a></li>	
+					<li>
+						<form method="POST" action="{{ path('mailRepoCreate') }}">
+							<div class="col-sm-14">
+								<input type="text" name="reponame" class="form-control"  style="display:none;"  id="form-repo">
+								<input type="submit" style="position: absolute; left: -9999px"/>
+							</div>
+						</form>
+					</li>
+				</ul>
+			</div>
+
+			{% block body %}
+			{% endblock %}
+		</div>
+	</div>
+
+	<script type="text/javascript" src="{{ asset('assets/js/jquery2.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('mdb/js/tether.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('css/mdb/js/bootstrap.min.js') }}"></script>
+	<script type="text/javascript">
+		$('.newrepo').click(function(){
+			$('#form-repo').css('display', 'block')
+			$('.newrepo').css('display', 'none')
+		})
+		$('#form-repo').keydown(function(e){
+			if (e.keyCode == 27) {
+				$('#form-repo').css('display', 'none')
+				$('.newrepo').css('display', 'block')
+			}
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+{% for label, flashes in app.session.flashbag.all %}
+{% for flash in flashes %}
+<div class="alert alert-{{ label }}">
+    <a class="btn btn-success" onclick="toastr.success('{{ flash }}');">{{ flash }}</a>
+</div>
+{% endfor %}
+{% endfor %}
+
+<!-- Heding -->
+<div class="page-heading">
+	<h1>Comment nous contacter ?</h1>
+	<p>Veuillez remplir ce formulaire afin que nous puissions répondre à vos demandes.</p>
+</div>
+
+<!-- Pricing Panels -->
+<div class="helix-pricing-page-wrapper">
+	<div class="container">
+		<div class="helix-boxed-container clearfix">
+			<!-- Pricing Style 1 -->
+			<div class="content-wrapper">
+				<div class="section-name">
+					<h4>
+						<span class="lines-box left">
+							<span class="line three"></span>
+							<span class="line two"></span>
+							<span class="line one"></span>
+						</span>
+						<span class="text">Formulaire de contact</span>
+						<span class="lines-box right">
+							<span class="line one"></span>
+							<span class="line two"></span>
+							<span class="line three"></span>
+						</span>
+					</h4>
+				</div>
+				<div class="col-sm-9 col-md-10">
+					<form method="POST" action="{{ path('messagePost') }}">
+						<fieldset class="form-group">
+							<i class="fa fa-header" aria-hidden="true"></i>
+							<label for="exampleInputEmail1">Titre de votre message</label>
+							<input type="text" class="form-control" id="exampleInputEmail1" placeholder="Titre ..." name="title" required>
+						</fieldset>
+						<fieldset class="form-group">
+							<label for="exampleTextarea">Contenu de votre message</label>
+							<textarea class="form-control" id="exampleTextarea" rows="12" placeholder="Contenu ..." name="content" required></textarea>
+						</fieldset>
+
+						<button type="submit" class="btn btn-primary" value="Envoyer"></button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

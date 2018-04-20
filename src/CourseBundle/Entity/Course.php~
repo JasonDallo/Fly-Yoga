@@ -1,0 +1,374 @@
+<?php
+
+namespace CourseBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Course
+ *
+ * @ORM\Table(name="course")
+ * @ORM\Entity(repositoryClass="CourseBundle\Repository\CourseRepository")
+ */
+class Course
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=255)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="date_debut", type="string", nullable=true)
+     */
+    private $dateDebut;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="duree", type="float", nullable=true)
+     */
+    private $duree;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="prof_id", type="integer")
+     */
+    private $profId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="lieu", type="string", length=255)
+     */
+    private $lieu;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="couleur", type="string", length=255, nullable=true)
+     */
+    private $couleur;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nbr_place", type="integer")
+     */
+    private $nbrPlace = 0;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="places_uses", type="integer", nullable=true)
+     */
+    private $placesUtilisées;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="tarif", type="integer")
+     */
+    private $tarif;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=255, nullable=true)
+     */
+    private $type;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="visibility", type="boolean")
+     */
+    private $visibility = false;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_lastnotif", type="datetime")
+     */
+    private $dateLastnotif;
+
+    public function __construct(){
+        $this->dateLastnotif = new \DateTime();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return Course
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set dateDebut
+     *
+     * @param string $dateDebut
+     * @return Course
+     */
+    public function setDateDebut($dateDebut)
+    {
+        $this->dateDebut = $dateDebut;
+
+        return $this;
+    }
+
+    /**
+     * Get dateDebut
+     *
+     * @return string 
+     */
+    public function getDateDebut()
+    {
+        return $this->dateDebut;
+    }
+
+    /**
+     * Set duree
+     *
+     * @param float $duree
+     * @return Course
+     */
+    public function setDuree($duree)
+    {
+        $this->duree = $duree;
+
+        return $this;
+    }
+
+    /**
+     * Get duree
+     *
+     * @return float 
+     */
+    public function getDuree()
+    {
+        return $this->duree;
+    }
+
+    /**
+     * Set profId
+     *
+     * @param integer $profId
+     * @return Course
+     */
+    public function setProfId($profId)
+    {
+        $this->profId = $profId;
+
+        return $this;
+    }
+
+    /**
+     * Get profId
+     *
+     * @return integer 
+     */
+    public function getProfId()
+    {
+        return $this->profId;
+    }
+
+    /**
+     * Set lieu
+     *
+     * @param string $lieu
+     * @return Course
+     */
+    public function setLieu($lieu)
+    {
+        $this->lieu = $lieu;
+
+        return $this;
+    }
+
+    /**
+     * Get lieu
+     *
+     * @return string 
+     */
+    public function getLieu()
+    {
+        return $this->lieu;
+    }
+
+    /**
+     * Set couleur
+     *
+     * @param string $couleur
+     * @return Course
+     */
+    public function setCouleur($couleur)
+    {
+        $this->couleur = $couleur;
+
+        return $this;
+    }
+
+    /**
+     * Get couleur
+     *
+     * @return string 
+     */
+    public function getCouleur()
+    {
+        return $this->couleur;
+    }
+
+    /**
+     * Set nbrPlace
+     *
+     * @param integer $nbrPlace
+     * @return Course
+     */
+    public function setNbrPlace($nbrPlace)
+    {
+        $this->nbrPlace = $nbrPlace;
+
+        return $this;
+    }
+
+    /**
+     * Get nbrPlace
+     *
+     * @return integer 
+     */
+    public function getNbrPlace()
+    {
+        return $this->nbrPlace;
+    }
+
+    /**
+     * Set tarif
+     *
+     * @param integer $tarif
+     * @return Course
+     */
+    public function setTarif($tarif)
+    {
+        $this->tarif = $tarif;
+
+        return $this;
+    }
+
+    /**
+     * Get tarif
+     *
+     * @return integer 
+     */
+    public function getTarif()
+    {
+        return $this->tarif;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     * @return Course
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string 
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set visibility
+     *
+     * @param boolean $visibility
+     * @return Course
+     */
+    public function setVisibility($visibility)
+    {
+        $this->visibility = $visibility;
+
+        return $this;
+    }
+
+    /**
+     * Get visibility
+     *
+     * @return boolean 
+     */
+    public function getVisibility()
+    {
+        return $this->visibility;
+    }
+
+    /**
+     * Set dateLastnotif
+     *
+     * @param \DateTime $dateLastnotif
+     * @return Course
+     */
+    public function setDateLastnotif($dateLastnotif)
+    {
+        $this->dateLastnotif = $dateLastnotif;
+
+        return $this;
+    }
+
+    /**
+     * Get dateLastnotif
+     *
+     * @return \DateTime 
+     */
+    public function getDateLastnotif()
+    {
+        return $this->dateLastnotif;
+    }
+}

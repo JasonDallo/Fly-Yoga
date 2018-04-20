@@ -1,0 +1,4 @@
+services:
+#    partner.example:
+#        class: PartnerBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

@@ -1,0 +1,14 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: Fly-Yoga
+    database_user: root
+    database_password: 
+
+    mailer_transport: smtp
+    mailer_host: SSL0.OVH.NET
+    mailer_user: 
+    mailer_password: 
+
+    secret: 

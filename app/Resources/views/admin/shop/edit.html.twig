@@ -1,0 +1,30 @@
+{% extends 'baseadmin.html.twig' %}
+{% block body %}
+<form action="{{ path('editedProduct', { id: article.id }) }}" method="POST">
+	<div class="mdl-textfield mdl-js-textfield">
+		<input class="mdl-textfield__input" type="text" id="sample1" name="name" value="{{ article.name }}" required>
+		<label class="mdl-textfield__label" for="sample1">Nom de l'article</label>
+	</div>
+	<br/>
+	<div class="mdl-textfield mdl-js-textfield">
+    <textarea class="mdl-textfield__input" name="desc" type="text" rows= "9"  id="sample5" required>{{ article.description }}</textarea>
+    <label class="mdl-textfield__label" for="sample5">Description</label>
+  </div>
+	<div class="mdl-selectfield mdl-js-selectfield">
+		<select id="myselect" name="type" class="mdl-selectfield__select" required>
+		<option value="{{ type.id }}">{{ type.name }}</option>
+		{% for one in types %}
+			<option value="{{ one.id }}">{{ one.name }}</option>
+		{% endfor %}
+		</select>
+		<label class="mdl-selectfield__label" for="myselect">Choose option</label>
+	</div>
+	<div class="mdl-textfield mdl-js-textfield">
+    <input class="mdl-textfield__input" type="number" pattern="-?[0-9]*(\.[0-9]+)?" id="sample2" value="{{ article.prix }}" required name="prix">
+    <label class="mdl-textfield__label" for="sample2">Prix</label>
+    <span class="mdl-textfield__error">Ce n'est pas un nombre!</span>
+	</div>
+	<br/>
+	<button class="mdl-button mdl-button--raised mdl-button--colored">Modifier</button>
+</form>
+{% endblock %}

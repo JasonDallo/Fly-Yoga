@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>{% block title %}Fly Yoga - Partenaires{% endblock %}</title>
+  {% block stylesheets %}
+  <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.indigo-pink.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/overlay.css') }}">
+  {% endblock %}
+  <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<body>
+  <div class="demo-layout mdl-layout mdl-js-layout">
+    <header class="mdl-layout__header mdl-layout__header">
+      <div class="mdl-layout__header-row">
+        <!-- Title -->
+        <span class="mdl-layout-title">Fly-Yoga</span>
+        <!-- Add spacer, to align navigation to the right -->
+        <div class="mdl-layout-spacer"></div>
+        <!-- Navigation -->
+        <nav class="mdl-navigation">
+          {% if app.user.username is defined %}
+          <a class="mdl-navigation__link" href="/me">{{ app.user.username }}</a>
+          {% else %}
+          <a class="mdl-navigation__link" href="/login">S'identifier</a>
+          <a class="mdl-navigation__link" href="/register">Devenir Étudiant</a>
+          <a class="mdl-navigation__link" id="show-dialog">Faire une demande de partenariat</a>
+          {% endif %}
+          <a class="mdl-navigation__link" href="/partenaires">barre de search</a>
+          <a class="mdl-navigation__link" href="">Boutique</a>
+        </nav>
+      </div>
+    </header>
+  </div>
+  <dialog class="mdl-dialog">
+    <h6 class="mdl-dialog__title">Creer son partenariat</h6>
+    <div class="mdl-dialog__content">
+      <p>
+        Remplissez les champs suivants pour completer votre inscription.
+      </p>
+      <form action="/partenaires/new" method="post">
+        <div class="mdl-textfield mdl-js-textfield">
+          <input class="mdl-textfield__input" type="text" id="sample1" name="name" placeholder="Appellation">
+        </div>
+        <div class="mdl-textfield mdl-js-textfield">
+          <textarea class="mdl-textfield__input" type="text" rows= "3" id="sample5" placeholder="Description" name="desc"></textarea>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield">
+          <input class="mdl-textfield__input" type="text" id="sample1" name="place" placeholder="Lieu">
+        </div>
+      <input type="submit" class="mdl-button" value="Submit">
+      <button type="button" class="mdl-button close">Annuler</button>
+      </form>
+    </div>
+    <div class="mdl-dialog__actions">
+    </div>
+  </dialog>
+  <script>
+    var dialog = document.querySelector('dialog');
+    var showDialogButton = document.querySelector('#show-dialog');
+    if (! dialog.showModal) {
+      dialogPolyfill.registerDialog(dialog);
+    }
+    showDialogButton.addEventListener('click', function() {
+      dialog.showModal();
+    });
+    dialog.querySelector('.close').addEventListener('click', function() {
+      dialog.close();
+    });
+  </script>
+
+  {% block body %}{% endblock %}
+  {% block javascripts %}
+  {% endblock %}
+</body>
+</html>

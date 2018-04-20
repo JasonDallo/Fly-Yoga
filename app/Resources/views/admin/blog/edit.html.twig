@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="page-heading">
+	<h1>Vous pouvez modifier cet l'article</h1>
+	<p>en cliquant sur les textes à modifier,et en appuyant sur le bouton "Modifier".</p>
+</div>
+
+<!-- Blog Detail-->
+<div class="helix-blog-page-wrapper">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-9 ">
+				<div class="helix-boxed-container blog-page">
+					<div class="content-wrapper clearfix ">
+						<img src="{{ asset('img/blog/' ~ article.id ~ "/1.jpg") }}" alt="" class="img-responsive" style="width:758px;height:350px">
+						<div class="heading">
+						<form method="POST" action="{{ path('adminBlogEdit', {'id': article.id }) }}">
+							<h2 class="title"><input type="text" name="title" value="{{ article.title }}"></h2>
+							<div class="meta">
+								<h3>par: {{ user.firstname }} {{ user.lastname }}</h3>
+								<h3>le: {{ article.createdAt|date('d/m/Y') }}</h3>
+								<h3></h3>
+							</div>
+						</div>
+						<div class="info-block single-post">
+						<textarea rows="12" cols="12" style="margin: 0px; width: 745px; height: 424px;resize: none;" name="content">{{ article.content }}</textarea>
+						</div>
+					</div>
+					<div class="blog-post-footer">
+						<div class="post-footer clearfix">
+							<div class="tags clearfix">
+								<div><i class="ion-ios-pricetag-outline"></i><span>Tags:</span></div>
+								<ul class="tags-list clearfix">
+								<input type="text" name="tags" value="{% for tag in article.tags %}{{ tag }};{% endfor %}" style="width:300px">
+								<input type="submit" value="Modifier" class="btn-success">
+						</form>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends('baseadmin.html.twig') %}
+{% block body %}
+<table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Username</th>
+      <th>Email</th>
+      <th>Last Login</th>
+      <th>Roles</th>
+      <th>Prénom</th>
+      <th>Nom</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user in users %}
+    <tr>
+      <td>{{ user.id }}</td>
+      <td>{{ user.username }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.lastLogin|date('d/m/Y H:i') }}</td>
+      <td>{{ user.roles|join(' / ') }}</td>
+      <td>{{ user.firstname }}</td>
+      <td>{{ user.lastname }}</td>
+      <td>
+      <form method="POST" action="{{ path('promoteUser') }}">
+      <input type="hidden" name="id" value="{{ user.id }}">
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button">
+          <i class="material-icons">build</i>
+        </button>
+        </form>
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button-">
+          <i class="material-icons">clear</i>
+        </button>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

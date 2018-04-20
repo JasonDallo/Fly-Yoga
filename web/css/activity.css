@@ -1,0 +1,24 @@
+.activity-list img {
+  width: 25px; 
+  height: 25px;
+  margin-right:6px;
+  position:relative;
+  top:-2px;
+}
+.time-line {
+  margin-left:10px;
+  cursor:default;
+}
+.icon-activity {
+  margin-right:8px;
+  margin-left:6px;
+}
+.userslogs{
+	float: left;
+}
+.courseslogs{
+  display: inline-block;
+}
+.entities{
+  display: inline-block;
+}

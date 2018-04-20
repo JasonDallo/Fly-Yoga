@@ -1,0 +1,120 @@
+{% block body %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Bonjour, {{ user.username }}</title>
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/mdb/css/bootstrap.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/user/user.css') }}">
+</head>
+<body>
+
+  {% for label, flashes in app.session.flashbag.all %}
+  {% for flash in flashes %}
+  <div class="alert alert-{{ label }}">
+    <a class="btn btn-success" onclick="toastr.success('{{ flash }}');">{{ flash }}</a>
+  </div>
+  {% endfor %}
+  {% endfor %}
+
+  <div class="container">
+    <h1>Editer</h1>
+    <hr>
+    <div class="row">
+      <!-- left column -->
+      <div class="col-md-3">
+        <div class="text-center">
+          <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+          <h6>Votre photo de profil</h6>
+          <form class="form-horizontal" role="form" method="POST" action="{{ path('editMine') }}">
+            <input type="file" class="form-control" name="file">
+          </div>
+        </div>
+
+        <!-- edit form column -->
+        <div class="col-md-9 personal-info">
+          <div class="alert alert-info alert-dismissable">
+            <a class="panel-close close" data-dismiss="alert">×</a> 
+            <i class="fa fa-coffee"></i>
+            Ces informations vous sont <strong>personnelles</strong> !Veillez à ne pas les divulguer.
+          </div>
+          <h3>Informations de {{ user.username }}</h3>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Prénom:</label>
+            <div class="col-lg-8">
+              <input class="form-control" type="text" value="{{ user.firstname }}" name="firstname">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Nom de famille:</label>
+            <div class="col-lg-8">
+              <input class="form-control" type="text" value="{{ user.lastname }}" name="lastname">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Enregistré le:</label>
+            <div class="col-lg-8">
+              <label>{{ user.registeredAt|date('d/m/Y') }}</label> 
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Email:</label>
+            <div class="col-lg-8">
+              <input class="form-control" type="email" value="{{ user.email }}" name="email">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Username:</label>
+            <div class="col-md-8">
+              <input class="form-control" type="text" value="{{ user.username }}" disabled>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Password:</label>
+            <div class="col-md-8">
+              <input class="form-control" type="password" value="" required id="password" name="password">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Confirm password:</label>
+            <div class="col-md-8">
+              <input class="form-control" type="password" value="" required id="confirm_password" name="confirm">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label"></label>
+            <div class="col-md-8">
+              <input type="submit" class="btn btn-primary" value="Save Changes">
+              <span></span>
+              <input type="reset" class="btn btn-default" value="Cancel">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="container">
+    <h3>Cartes Disponibles</h3>
+    {% if OnCards is empty %}
+    Désolé, vous ne possedez pas de cartes valides.
+    {% else %}
+      {% for onCard in OnCards %}
+      <div class="card" style="width:400px;">
+      <img class="card-img-top" src="{{ asset('img/shop/' ~ onCard.id ~ '.jpg') }}" alt="/!\">
+        <div class="card-block">
+          <h4 class="card-title">{{ onCard.name }}</h4>
+          <p class="card-text">{{ onCard.description }}</p>
+          <a class="btn btn-primary">{{ onCard.amount ~ '/' ~ onCard.prix }}</a>
+        </div>
+      </div>
+      {% endfor %}
+      {{ dump(OnCards) }}
+    {% endif %}
+  </div>
+  <script type="text/javascript" src="{{ asset('js/jquery.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/user/user.js') }}"></script>
+
+</body>
+</html>
+
+{% endblock %}

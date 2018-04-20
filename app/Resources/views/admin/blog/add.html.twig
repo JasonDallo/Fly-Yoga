@@ -1,0 +1,32 @@
+{% extends 'baseadmin.html.twig' %}
+{% block body %}
+<form method="post" action="{{ path('addedBlog') }}" enctype="multipart/form-data">
+<div class="md-form">
+    <i class="fa fa-envelope prefix"></i>
+    <input type="text" id="form2" class="form-control" name="title" required="">
+    <label for="form2">Titre de votre article</label>
+</div>
+<div class="md-form">
+    <i class="fa fa-pencil prefix"></i>
+    <textarea type="text" id="form8" class="mdl-textfield__input" name="content" required="" rows="12"></textarea>
+    <label for="form8">Contenu de votre article</label>
+</div>
+<div class="md-form">
+    <i class="fa fa-envelope prefix"></i>
+    <input type="file" name="img">
+    <small>Cette image sera mise en avant.(Pour une meilleure définition de l'image, nous avons besoin d'une image de 768x350)</small>
+</div>
+<div class="md-form">
+    <i class="fa fa-envelope prefix"></i>
+    <input type="text" id="form2" class="form-control"  name="url" placeholder="Video URL">
+</div>
+<div class="md-form">
+    <i class="fa fa-envelope prefix"></i>
+    <input type="text" id="form2" class="form-control"  name="tags" placeholder="Tags">
+    <small>Ce champs est obligatoire, un minimun de 2 tags est recommandé,un tag est séparé par un point-virgule.</small>
+</div>
+
+<button type="submit" class="btn btn-success">Submit</button>
+</form>
+
+{% endblock %}

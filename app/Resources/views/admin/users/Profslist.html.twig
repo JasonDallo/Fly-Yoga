@@ -1,0 +1,40 @@
+{% extends('baseadmin.html.twig') %}
+{% block body %}
+<table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Last Login</th>
+      <th>Roles</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for prof in profs %}
+    <tr>
+      <td>{{ prof.id }}</td>
+      <td>{{ prof.username }}</td>
+      <td>{{ prof.email }}</td>
+      <td>{{ prof.lastLogin|date('d/m/Y H:i') }}</td>
+      <td>{{ prof.roles|join(' / ') }}</td>
+      <td>
+      <form method="POST" action="{{ path('demoteProf') }}">
+      <input type="hidden" name="id" value="{{ prof.id }}">
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button">
+          <i class="material-icons">build</i>
+        </button>
+        </form>
+        <form method="post" action="{{ path('deleteUser') }}">
+        <input type="hidden" name="id" value="{{ prof.id }}">
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button-">
+          <i class="material-icons">clear</i>
+        </button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+	<!-- Heding -->
+	<div class="page-heading">
+		<h1>Admin Blog</h1>
+		<p>Ceci est le blog Administrateur, il vous permet de modifier un article déjà créé.</p>
+	</div>
+
+
+<!-- Class SideBar Wrapper -->
+<div class="helix-blog-page-wrapper">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-9 ">
+				{% for article in articles %}
+				<div class="helix-boxed-container blog-page">
+					<div class="content-wrapper clearfix ">
+						<img src="{{ asset('img/blog/' ~ article.id ~ '/1.jpg') }}" alt="/!\" class="img-responsive" style="width:758px;height:350px">
+						<div class="heading">
+							<a href="{{ path('showAdminBlog', {'id': article.id }) }}" ><h2 class="title">{{ article.title }}</h2></a>
+							<div class="meta">
+								<h3>par: {{ article.user[0].firstname }} {{ article.user[0].lastname }}</h3>
+								<h3>le: {{ article.createdAt|date('d/m/Y') }}</h3>
+								<h3>{{ article.comments|length }} Comments</h3>
+							</div>
+						</div>
+						<div class="info-block">
+							{{ article.content[:170]|nl2br }}
+						</div>
+						<div class="more-button">
+						<a href="{{ path('showAdminBlog', {'id': article.id }) }}" class="btn btn-normal btn-solid">Continue reading</a>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+			<div class="col-md-3">
+				<div class="helix-sidebar">
+					<div class="sidebar-widget search">
+						<h4 class="title">Recherche</h4>
+						<div class="widget-content">
+							<form action="{{ path('searchBlog') }}" class="sidebar-form" method="POST">
+								<div class="field">
+									<input type="text" name="search" placeholder="Ce que vous cherchez">
+								</div>
+								<button type="submit"><i class="ion-ios-search-strong"></i></button>
+							</form>
+						</div>
+					</div>
+					<div class="sidebar-widget recent-posts">
+						<h4 class="title">Recent Posts</h4>
+						<div class="widget-content">
+							<ul class="posts-list">
+							{% for lastArticle in lastArticles %}
+								<li class="clearfix"><a href="{{ path('showAdminBlog', {'id': lastArticle.id}) }}"><img src="{{ asset('img/blog/'~ lastArticle.id ~ '/1.jpg') }}" style="width:100px;" alt=""></a><a href="{{ path('showAdminBlog', {'id': lastArticle.id}) }}" class="text">{{ lastArticle.title[:35] }}</a></li>
+								{% endfor %}
+							</ul>
+						</div>
+					</div>
+					<div class="sidebar-widget advertisement">
+						<h4 class="title">Advertisement</h4>
+						<div class="widget-content">
+							<div class="ad-banner">
+								<h2>Your Ad Here</h2>
+							</div>
+						</div>
+					</div>
+					<div class="sidebar-widget tags">
+						<h4 class="title">Tags</h4>
+						<div class="widget-content">
+							<ul class="tags-list clearfix">
+								<li><a href="#">yoga</a></li>
+								<li><a href="#">hatha yoga</a></li>
+								<li><a href="#">mediate</a></li>
+								<li><a href="#">trainers</a></li>
+								<li><a href="#">equipment</a></li>
+								<li><a href="#">tips</a></li>
+								<li><a href="#">health care</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="sidebar-widget subscribe">
+						<h4 class="title">S'abonner</h4>
+							<div class="widget-content">
+								<p>S'abonner permet de suivre nos activités.</p>
+								<form action="{{ path('subRegister') }}" class="sidebar-form" method="POST">
+									<div class="field">
+										<input type="email" name="email" placeholder="Enter your email here">
+									</div>
+									<button class="btn btn-normal btn-solid">Subscribe</button>
+								</form>
+							</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

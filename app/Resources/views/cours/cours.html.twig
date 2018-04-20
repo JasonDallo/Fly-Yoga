@@ -1,0 +1,82 @@
+{% extends 'basetemp.html.twig' %}
+{% block body %}
+
+
+{% for label, flashes in app.session.flashbag.all %}
+{% for flash in flashes %}
+<div class="alert alert-{{ label }}">
+	<a class="btn btn-success" onclick="toastr.success('{{ flash }}');">{{ flash }}</a>
+</div>
+{% endfor %}
+{% endfor %}
+
+{% if is_granted('IS_AUTHENTICATED_FULLY')  %}
+{% if cartes is defined %}
+<p>Vous disposez actuellement de {{ cartes|length }} cartes d'achat de cours</p>
+{% else %}
+<p>vous ne disposez pas de cartes d'achat</p>
+{% endif %}
+{% else %}
+Connectez vous pour réserver un créneaux
+{% endif %}
+<div class="calendar">
+</div>
+
+<div id="fullCalModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+				<h4 id="modalTitle" class="modal-title"></h4>
+			</div>
+			<div id="modalBody" class="modal-body">
+				<center>
+					<div class="image">
+						<img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRbezqZpEuwGSvitKy3wrwnth5kysKdRqBW54cAszm_wiutku3R" name="aboutme" width="140" height="140" border="0" class="img-circle">
+					</div>
+					<h3 class="media-heading"><small class="prof"></small></h3>
+					<span><strong>Infos: </strong></span>
+					<div class="infos">
+					</div>
+				</center>
+				<hr>
+				<center>
+					<p class="text-left"><strong>Bio: </strong><br>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sem dui, tempor sit amet commodo a, vulputate vel tellus.</p><br>
+				</center>
+					<div class="modal-footer">
+						<center>
+							{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+							{% if cartes|length > 0 %}
+							<form method="POST" action="{{ path('courseSub') }}" id="PostForm">
+							<button type="submit" class="btn btn-default" >Acheter une place pour ce cours</button>
+							</form>
+							{% else %}
+							<button type="button" class="btn btn-default" data-dismiss="modal" id="cardShop">Acheter une carte de crédit Fly-Yoga
+							</button>
+							{% endif %}
+							{% else %}
+							<a href="/login" type="button" class="btn btn-default">
+								Je dois me connecter
+							</a>
+							{% endif %}
+						</center>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="Shop" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+				<h4 id="modalTitle" class="modal-title">Cartes d'achat</h4>
+			</div>
+			<div id="shopBody" class="modal-body">
+			</div>
+		</div>
+	</div>
+	{% endblock %}

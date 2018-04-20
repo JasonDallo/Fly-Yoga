@@ -1,0 +1,157 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+
+
+
+<!-- Heding -->
+<div class="page-heading two">
+    <h1>shop</h1>
+</div>
+
+{% for label, flashes in app.session.flashbag.all %}
+{% for flash in flashes %}
+<div class="alert alert-{{ label }}">
+    <a class="btn btn-success" onclick="toastr.success('{{ flash }}');">{{ flash }}</a>
+</div>
+{% endfor %}
+{% endfor %}
+
+<!-- Shop Features -->
+<div class="shop-features">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 shop-feature clearfix">
+                <div class="icon"><i class="ion-ios-paperplane"></i></div>
+                <div class="description">
+                    <h3>Free shipping in town</h3>
+                    <p>Buy now and get it without extra fee</p>
+                </div>
+            </div>
+            <div class="col-md-4 shop-feature clearfix">
+                <div class="icon"><i class="ion-card"></i></div>
+                <div class="description">
+                    <h3>Money-back guarantee</h3>
+                    <p>100% money back in the first week</p>
+                </div>
+            </div>
+            <div class="col-md-4 shop-feature clearfix">
+                <div class="icon"><i class="ion-chatbubble-working"></i></div>
+                <div class="description">
+                    <h3>Friendly support</h3>
+                    <p>Free 24/7 Support</p>
+                </div>
+            </div>  
+        </div>
+    </div>
+</div>
+
+<!-- Shop -->
+<div class="helix-shop-page-wrapper shop-products">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="helix-boxed-container">
+                    <div class="top-bar clearfix">
+                        <h4 class="title">Trier par:</h4>
+                        <div class="select-wrapper">
+                        <form method="POST" action="{{ path('order') }}">
+                            <select name="filter" id="sort-products" onchange="this.form.submit()">
+                                <option value="type">Type</option>
+                                <option value="prix">Prix</option>
+                                <option value="older">Plus vieux</option>
+                                <option value="earlier">Plus récent</option>
+                            </select>
+                        </form>
+                        </div>
+                        {% if keyword is defined %}
+                        <p class="title">Vous recherchez avec '{{ keyword }}'</p>
+                        {% endif %}
+                        <div class="top-icons">
+                            <div class="cards"><i class="ion-card"></i></div>
+                            <a href="/shop"><div class="shirt active"><i class="ion-tshirt"></i></div></a>
+                        </div>
+                    </div>
+                    <div class="content-wrapper clearfix">
+                        {% for item in items %}
+
+                        <div class="helix-product-box" style="max-height: 321px;">
+                            <div class="img-wrapper">
+                                <a href="?id={{ item.id }}"><img src="{{ asset('img/shop/'~ item.id ~ '.jpg') }}" alt="" class="img-responsive" style="width:281px;height:187px;"></a>
+                            </div>
+                            <div class="info-block item{{ item.id }}">
+                                <a href="?id={{ item.id }}"><h3>
+                                    {% if item.name >  25 %}
+                                    {{ item.name[0:23] ~ ".." }}
+                                    {% else %}
+                                    {{ item.name }}
+                                    {% endif %}
+                                </h3></a>
+
+                                <h5>{% if item.description|length > 28 %}
+                                    {{ item.description[0:29] ~ '...' }}
+                                    {% else %}
+                                    {{ item.description }}</h5>
+                                    {% endif %}
+                                    <h4>{{ item.prix }}€</h4>
+                                    <form method="post" action="{{ path('buyItem') }}">
+                                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                        <button type="submit" class="btn btn-primary">Ajouter au panier</button>
+                                        {% else %}
+                                        <button type="submit" class="btn btn-secondary btn-lg" disabled>Connectez vous</button>
+                                        {% endif %}
+                                        <input type="hidden" name="id" value="{{ item.id }}">
+                                    </form>
+                                </div>
+                            </div>
+
+                            {% endfor %}
+                        </div>
+                        <div class="pagination-wrapper clearfix">
+                            <ul class="helix-pagination">
+                                <li><a href="#">Preview</a></li>
+                                <li><a href="#"class="active">1</a></li>
+                                <li><a href="#" >2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li><a href="#">Next</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="helix-sidebar">
+                        <div class="sidebar-widget cart">
+                            <h4 class="title">Votre panier</h4>
+                            <div class="widget-content clearfix">
+                            {% for article in panier %}
+                                <div class="product clearfix">
+                                <form method="POST" action="{{ path('delFromCart') }}">
+                            <input type="hidden" name="id" value="{{ article.id }}">
+                            <button type="submit"><i class="ion-ios-close "></i></button>
+                            </form>
+                                    
+                                    <div class="product-detail">
+                                        <a href="#"><h4>{{ article.name }}</h4></a>
+                                        <h4>{{ article.quantity }}x {{ article.prix }}€</h4>
+                                    </div>
+                                    <img src="{{ asset('img/shop/'~ article.id ~ '.jpg') }}" alt="http://placehold.it/30x40" style="width:45px;">
+                                </div>
+                            {% endfor %}
+                                <div class="footer">
+                                    <a href="{{ path('showCart') }}" class="btn btn-min btn-solid">Aller au panier</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+<script type="text/javascript" src="{{ asset('assets/js/jquery2.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/shop.js') }}"></script>
+
+{% endblock %}

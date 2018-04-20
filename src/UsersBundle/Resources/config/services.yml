@@ -1,0 +1,5 @@
+services:
+  fly.form.registration:
+    class: UsersBundle\Form\RegistrationType
+    tags: 
+        - { name: form.type, alias: fly_user_registration }

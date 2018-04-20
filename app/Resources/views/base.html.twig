@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fly Yoga Home Page</title>
+
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="{{ asset('assets/owl-carousel/assets/owl.carousel.css') }}">
+  <!-- RS5.0 Main Stylesheet -->
+  <link rel="stylesheet" type="text/css" href="{{ asset('assets/revolution/css/settings.css') }}">
+  <!-- RS5.0 Layers and Navigation Styles -->
+  <link rel="stylesheet" type="text/css" href="{{ asset('assets/revolution/css/layers.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('assets/revolution/css/navigation.css') }}">
+  <!-- <link rel="stylesheet" type="text/css" href="assets/revolution/assets/css/noneed.css"> -->
+  <!-- Theme CSS-->
+  <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+
+
+</head>
+<body>
+
+
+  <!-- Navigation -->
+  <div class="helix-navigation navigation-full">
+    <div class="container navbar">
+      <div class="nav-top-bar clearfix">
+        <div class="short-info">
+          <h4>Bienvenue sur le site de Fly-Yoga.
+            Bonjour, 
+            {% if app.user.username is defined %}
+            {{ app.user.username }}
+
+            <h4><a href="/logout">Se déconnecter</a></h4>
+            {% else %}
+            invité
+
+            <h4><a data-toggle="modal" data-target="#registrationModal">S'inscrire</a></h4>
+
+            <h4><a data-toggle="modal" data-target="#loginModal">Se Connecter</a></h4>
+            {% endif %}
+
+          </h4>
+          <h4><a href="#">Nos offres spéciales</a></h4>
+          {% if app.user.username is defined %}
+          <h4>
+            <a href="/me">Mon compte</a>
+          </h4>
+          {% endif %}
+          </div>
+          <div class="social-media">
+            <ul>
+              <li><a href="https://www.facebook.com/FlyYoga.fr/"><i class="ion-social-facebook"></i></a></li>
+              <li><a href="https://twitter.com/fly_yoga"><i class="ion-social-twitter"></i></a></li>
+              <li><a href="#"><i class="ion-social-googleplus"></i></a></li>
+              <li><a href="#"><i class="ion-email"></i></a></li>
+            </ul>
+          </div>
+        </div>
+        <nav class="main-nav clearfix">
+          <div class="logo-wrapper">
+            <a href="/" class="logo">Fly - Yoga</a>
+          </div>
+          <ul id="main-menu">
+            <li class="menu-item">
+              <a href="/" class="active">Acceuil</a>
+            </li>
+            <li class="menu-item">
+              <a href='/courses'><span>Cours</span></a>
+              <ul class="submenu first-submenu">
+                <li><a href="class-grid.html">Class Grid</a></li>
+                <li><a href="class-list.html">Class List</a></li>
+                <li><a href="class-sidebar.html">Class Sidebar</a></li>
+                <li><a href="class-detail.html">Class Detail</a></li>
+              </ul>
+            </li>
+            <li class="menu-item">
+              <a href='/partenaires'><span>Partenaires</span></a>
+              <ul class="submenu first-submenu">
+                <li><a href="event-grid.html">Event Grid</a></li>
+                <li><a href="event-list.html">Event List</a></li>
+                <li><a href="event-sidebar.html">Event Sidebar</a></li>
+                <li><a href="event-detail.html">Event Detail</a></li>
+              </ul>
+            </li>
+            <li class="menu-item">
+              <a href="{{ path('Blog') }}"><span>Nous concernant</span></a>
+              <ul class="submenu first-submenu">
+                <li><a href="{{ path('Blog') }}">Blog</a></li>
+                <li><a href="blog-detail.html">Blog Detail</a></li>
+              </ul>
+            </li>
+            <li class="menu-item">
+              <a href="/shop"><span>Boutique</span></a>
+              <ul class="submenu first-submenu">
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="shop-detail.html">Shop Details</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li><a href="checkout.html">Checkout</a></li>
+              </ul>
+            </li>
+
+          </ul>
+          <div class="pull-right">
+            <div id="search-bar">
+              <form action="#" class="search-form">
+                <button><i class="ion-ios-search-strong"></i></button>
+                <input type="search" name="search" placeholder="I'm looking for...">
+              </form>
+            </div>
+            <button id="menu-toggle">
+              <i class="ion-android-menu"></i>
+            </button>
+            <button id="search-toggle">
+              <i class="ion-ios-search-strong"></i>
+            </button>
+          </div>
+        </nav>
+      </div>
+    </div>
+{% for label, flashes in app.session.flashbag.all %}
+{% for flash in flashes %}
+<div class="alert alert-{{ label }}">
+    <a class="btn btn-success" onclick="toastr.success('{{ flash }}');">{{ flash }}</a>
+</div>
+{% endfor %}
+{% endfor %}
+
+
+  {% block body %}{% endblock %}
+
+    {% block javascripts %}
+
+        <script type="text/javascript" src="{{ asset('assets/js/jquery2.min.js')}}"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="{{ asset('assets/owl-carousel/owl.carousel.min.js')}}"></script>
+        <script type="text/javascript" src="{{ asset('assets/js/twitterFetcher.js')}}"></script>
+        <script type="text/javascript" src="{{ asset('assets/js/moment.js')}}"></script>
+        <script type="text/javascript" src="{{ asset('assets/js/instafeed.min.js')}}"></script>
+        <!-- RS5.0 Core JS Files -->
+        <script type="text/javascript" src="{{ asset('assets/revolution/js/jquery.themepunch.tools.min838f.js?rev=5.0')}}"></script>
+        <script type="text/javascript" src="{{ asset('assets/revolution/js/jquery.themepunch.revolution.min838f.js?rev=5.0')}}"></script>
+        <script type="text/javascript" src="{{ asset('assets/revolution/js/extensions/revolution.extension.video.min.js')}}"></script>
+        <script type="text/javascript" src="{{ asset('assets/revolution/js/extensions/revolution.extension.slideanims.min.js')}}"></script>
+        <script type="text/javascript" src="{{ asset('assets/revolution/js/extensions/revolution.extension.navigation.min.js')}}"></script>
+        <script type="text/javascript" src="{{ asset('assets/revolution/js/extensions/revolution.extension.layeranimation.min.js')}}"></script>
+        <script type="text/javascript" src="{{ asset('assets/revolution/js/extensions/revolution.extension.actions.min.js')}}"></script>
+
+        <!-- Theme Script -->
+  {% endblock %}

@@ -1,0 +1,136 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<!-- Heding -->
+<div class="page-heading">
+	<h1>{{ part.name }}</h1>
+	{% if app.user %}
+	{% if part.userId == app.user.id  %}
+	{% if part.enabled == 1 %}
+	<p>DISPONIBLE.</p>
+	{% else %}
+	<p>INDISPONIBLE.</p>
+	{% endif %}
+	{% else %}
+	<p>salut.</p>
+	{% endif %}
+	{% else %}
+	<p>pas connecté</p>
+	{% endif %}
+</div>
+
+<!-- Blog Detail-->
+<div class="helix-blog-page-wrapper">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-9 ">
+				<div class="helix-boxed-container blog-page">
+					<div class="content-wrapper clearfix ">
+						<img src="{{ asset('img/partenaires/' ~ part.id ~ '/' ~ random(part.images)) }}" alt="" class="img-responsive" style="width:758px;height:350px">
+						<div class="heading">
+							<h2 class="title">{{ part.name }}</h2>
+							<div class="meta">
+								<h3>{{ part.place }}</h3>
+							</div>
+						</div>
+						<div class="info-block single-post">
+							{{ part.description|nl2br }}
+						</div>
+					</div>
+				</div>
+				<div class="helix-boxed-container clearfix comments-wrapper">
+					<h2>Il y a {{ comments|length }} commentaires
+					</h2>
+					{% for comment in comments %}
+					<div class="helix-comment clearfix">
+						<div class="comment-content">
+							<div class="clearfix">
+								<div class="user">
+									<h3>{{ comment.user.firstname }} {{ comment.user.lastname }}</h3>
+									<h5>{{ comment.createdAt|date('d/m/Y H:i') }}</h5>
+								</div>
+							</div>
+							<p>{{ comment.content|nl2br }}</p>
+							</div>
+							{% if is_granted('ROLE_ADMIN') %}
+							<a href="">Supprimer</a>
+							{% endif %}
+						</div>
+					{% endfor %}
+					</div>
+					<div class="helix-boxed-container clearfix comment-form-wrapper ">
+						<h2>Laisse ton avis</h2>
+						{% if app.user.username is defined %}
+						<form action="{{ path('addCommentasPartner', {'id': part.id}) }}" class="helix-comment-form clearfix" method="POST">
+							<div class="field">
+								<h4>message</h4>
+								<textarea name="content" required></textarea>
+							</div>
+							<div class="field">
+								<button class="btn btn-normal btn-solid">Submit</button>
+							</div>
+						</form>
+						{% else %}
+						<a href='/login'>Veuillez vous connecter</a>
+						{% endif %}
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="helix-sidebar">
+						<div class="sidebar-widget search">
+							<h4 class="title">Recherche</h4>
+							<div class="widget-content">
+								<form action="{{ path('searchPartner') }}" class="sidebar-form" method="POST">
+									<div class="field">
+										<input type="text" name="search" placeholder="Ce que vous cherchez">
+									</div>
+									<button type="submit"><i class="ion-ios-search-strong"></i></button>
+								</form>
+							</div>
+						</div>
+						<div class="sidebar-widget recent-posts">
+							<h4 class="title">Images disponibles <div class="pull-right"><a href="" data-toggle="modal" data-target="#image"><i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i></a></div></h4>
+							<div class="widget-content">
+								<ul class="posts-list">
+									{% for image in part.images %}
+									<li class="clearfix"><a href=""><img src="{{ asset('img/partenaires/' ~ part.id ~ '/' ~  image) }}" style="width:100px;" alt=""></a></li>
+									{% endfor %}
+								</ul>
+							</div>
+						</div>
+						<div class="sidebar-widget subscribe">
+							<h4 class="title">S'abonner</h4>
+							<div class="widget-content">
+								<p>S'abonner permet de suivre nos activités.</p>
+								<form action="{{ path('subRegister') }}" class="sidebar-form" method="POST">
+									<div class="field">
+										<input type="email" name="email" placeholder="Enter your email here">
+									</div>
+									<button class="btn btn-normal btn-solid">Subscribe</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="image" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Ajouter une image</h4>
+			</div>
+			<div class="modal-body">
+				<form action="{{ path('postImages', {'id': part.id}) }}" class="dropzone" id="my-awesome-dropzone" method="POST">
+				<button type="submit">Envoyer</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="{{ asset('js/dropzone.js') }}"></script>
+{% endblock %}

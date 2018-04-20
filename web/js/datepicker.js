@@ -1,0 +1,22 @@
+$('#datepicker').pickadate({
+	monthsFull: [ 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre' ],
+    monthsShort: [ 'Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec' ],
+    weekdaysFull: [ 'Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi' ],
+    weekdaysShort: [ 'Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam' ],
+    today: 'Aujourd\'hui',
+    clear: 'Effacer',
+    close: 'Fermer',
+    firstDay: 1,
+    format: 'dd mmmm yyyy',
+    formatSubmit: 'yyyy/mm/dd',
+    labelMonthNext:"Mois suivant",
+    labelMonthPrev:"Mois précédent",
+    labelMonthSelect:"Sélectionner un mois",
+    labelYearSelect:"Sélectionner une année",
+});
+$('#timepicker').pickatime({
+    format: 'H:i',
+    interval: 15,
+    min: [7,30],
+    max: [21,0]
+});
