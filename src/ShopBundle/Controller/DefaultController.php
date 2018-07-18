@@ -19,8 +19,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
     class DefaultController extends Controller
     {
         private $APIUSERNAME = "engine.serv.hosting_api1.gmail.com";
-        private $APIPWD = "AVJVWZE8RSJ6E9BP";
-        private $APISIGNATURE = "ASb87Huyn7qxcXQ9-Lj7Gfl0gnK.AAv6IVJlx37cJ-U-mRQcV1y6GnXt";
+        private $APIPWD = "XXX";
+        private $APISIGNATURE = "XXX";
 
     public function __construct(){
         if (!isset($session)) {
